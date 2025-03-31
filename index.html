@@ -807,108 +807,66 @@
     </footer>
     
     <script>
-       // Run this script when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Navigation handling
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.section');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
+        // Run this script when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation handling
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
             
-            // Update active link
-            navLinks.forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Show selected section, hide others
-            const targetSection = this.getAttribute('data-section');
-            sections.forEach(section => {
-                if (section.id === targetSection) {
-                    section.classList.remove('hidden');
-                } else {
-                    section.classList.add('hidden');
-                }
-            });
-        });
-    });
-    
-    // Start assessment button
-    const startAssessmentBtns = document.querySelectorAll('.start-assessment');
-    startAssessmentBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Update active link
-            navLinks.forEach(link => link.classList.remove('active'));
-            document.querySelector('[data-section="assessment"]').classList.add('active');
-            
-            // Show assessment section, hide others
-            sections.forEach(section => {
-                if (section.id === 'assessment') {
-                    section.classList.remove('hidden');
-                } else {
-                    section.classList.add('hidden');
-                }
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active link
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected section, hide others
+                    const targetSection = this.getAttribute('data-section');
+                    sections.forEach(section => {
+                        if (section.id === targetSection) {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                });
             });
             
-            // Scroll to assessment section
-            document.getElementById('assessment').scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-    
-    // Get references to form elements
-    const assessmentForm = document.getElementById('assessment-form');
-    const resultsDiv = document.getElementById('results');
-    const resultContent = document.getElementById('result-content');
-    
-    // Form submission handler
-    if (assessmentForm) {
-        assessmentForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log("Form submitted"); // Debug log
-            
-            // Collect all form responses
-            const formData = new FormData(assessmentForm);
-            const responses = {};
-            
-            for (const [name, value] of formData.entries()) {
-                responses[name] = value;
-            }
-            
-            console.log("Form responses:", responses); // Debug log
-            
-            // Generate custom profile based on responses
-            const profileHtml = generatePsychoanalyticProfile(responses);
-            
-            // Display the results
-            resultContent.innerHTML = profileHtml;
-            
-            // Hide form, show results
-            assessmentForm.style.display = 'none';
-            resultsDiv.classList.remove('hidden');
-            
-            // Scroll to results
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Add click event directly to submit button as a backup
-        const submitButton = document.querySelector('button[type="submit"]');
-        if (submitButton) {
-            submitButton.addEventListener('click', function(e) {
-                console.log("Submit button clicked"); // Debug log
-                
-                // Check if the form is valid
-                const isValid = Array.from(document.querySelectorAll('input[type="radio"][required]'))
-                    .every(input => {
-                        const name = input.getAttribute('name');
-                        return document.querySelector(`input[name="${name}"]:checked`);
+            // Start assessment button
+            const startAssessmentBtns = document.querySelectorAll('.start-assessment');
+            startAssessmentBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active link
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    document.querySelector('[data-section="assessment"]').classList.add('active');
+                    
+                    // Show assessment section, hide others
+                    sections.forEach(section => {
+                        if (section.id === 'assessment') {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
                     });
                     
-                console.log("Form is valid:", isValid); // Debug validity
-                
-                if (isValid) {
+                    // Scroll to assessment section
+                    document.getElementById('assessment').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // Get references to form elements
+            const assessmentForm = document.getElementById('assessment-form');
+            const resultsDiv = document.getElementById('results');
+            const resultContent = document.getElementById('result-content');
+            
+            // Form submission handler
+            if (assessmentForm) {
+                assessmentForm.addEventListener('submit', function(e) {
                     e.preventDefault();
+                    console.log("Form submitted"); // Debug log
                     
                     // Collect all form responses
                     const formData = new FormData(assessmentForm);
@@ -917,6 +875,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     for (const [name, value] of formData.entries()) {
                         responses[name] = value;
                     }
+                    
+                    console.log("Form responses:", responses); // Debug log
                     
                     // Generate custom profile based on responses
                     const profileHtml = generatePsychoanalyticProfile(responses);
@@ -930,47 +890,1285 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Scroll to results
                     resultsDiv.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    alert("Please answer all questions before submitting.");
+                });
+
+                // Add click event directly to submit button as a backup
+                const submitButton = document.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    submitButton.addEventListener('click', function(e) {
+                        console.log("Submit button clicked"); // Debug log
+                        
+                        // Check if the form is valid
+                        const isValid = Array.from(document.querySelectorAll('input[type="radio"][required]'))
+                            .every(input => {
+                                const name = input.getAttribute('name');
+                                return document.querySelector(input[name="${name}"]:checked);
+                            });
+                            
+                        console.log("Form is valid:", isValid); // Debug validity
+                        
+                        if (isValid) {
+                            e.preventDefault();
+                            
+                            // Collect all form responses
+                            const formData = new FormData(assessmentForm);
+                            const responses = {};
+                            
+                            for (const [name, value] of formData.entries()) {
+                                responses[name] = value;
+                            }
+                            
+                            // Generate custom profile based on responses
+                            const profileHtml = generatePsychoanalyticProfile(responses);
+                            
+                            // Display the results
+                            resultContent.innerHTML = profileHtml;
+                            
+                            // Hide form, show results
+                            assessmentForm.style.display = 'none';
+                            resultsDiv.classList.remove('hidden');
+                            
+                            // Scroll to results
+                            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            alert("Please answer all questions before submitting.");
+                        }
+                    });
                 }
-            });
-        }
-    }
-    
-    // Return home button
-    const returnHomeBtn = document.querySelector('.return-home');
-    if (returnHomeBtn) {
-        returnHomeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Update active link
-            navLinks.forEach(link => link.classList.remove('active'));
-            document.querySelector('[data-section="home"]').classList.add('active');
-            
-            // Show home section, hide others
-            sections.forEach(section => {
-                if (section.id === 'home') {
-                    section.classList.remove('hidden');
-                } else {
-                    section.classList.add('hidden');
-                }
-            });
-            
-            // Reset form and visibility
-            if (assessmentForm) {
-                assessmentForm.style.display = 'block';
-                assessmentForm.reset();
             }
-            resultsDiv.classList.add('hidden');
             
-            // Scroll to home section
-            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+            // Return home button
+            const returnHomeBtn = document.querySelector('.return-home');
+            if (returnHomeBtn) {
+                returnHomeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active link
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    document.querySelector('[data-section="home"]').classList.add('active');
+                    
+                    // Show home section, hide others
+                    sections.forEach(section => {
+                        if (section.id === 'home') {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                    
+                    // Reset form and visibility
+                    if (assessmentForm) {
+                        assessmentForm.style.display = 'block';
+                        assessmentForm.reset();
+                    }
+                    resultsDiv.classList.add('hidden');
+                    
+                    // Scroll to home section
+                    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+            
+            // Assessment result generator
+            function generatePsychoanalyticProfile(responses) {
+                // Count frequency of different response types
+                const defenseMechanisms = countResponsesInRange(responses, 1, 3);
+                const objectRelations = countResponsesInRange(responses, 4, 6);
+                const psychosexualDev = countResponsesInRange(responses, 7, 8);
+                const selfPsychology = countResponsesInRange(responses, 9, 10);
+                const symbolism = countResponsesInRange(responses, 11, 12);
+                const anxiety = countResponsesInRange(responses, 13, 15);
+                
+                // Generate sections based on most frequent responses
+                let profile = '';
+                
+                // Defense Organization section
+                profile += generateDefenseProfile(defenseMechanisms);
+                
+                // Object Relations section
+                profile += generateObjectRelationsProfile(objectRelations);
+                
+                // Psychosexual Development section
+                profile += generatePsychosexualProfile(psychosexualDev);
+                
+                // Self Structure section
+                profile += generateSelfStructureProfile(selfPsychology);
+                
+                // Symbolic Landscape section
+                profile += generateSymbolicProfile(symbolism);
+                
+                // Anxiety and Conflict section
+                profile += generateAnxietyProfile(anxiety);
+                
+                // Synthesis - integrate all sections
+                profile += generateSynthesisProfile(responses);
+                
+                // Add disclaimer
+                profile += 
+                    <div class="theory-reference">
+                        <h4>Important Note</h4>
+                        <p>This assessment is designed for educational purposes only and does not constitute a clinical diagnosis or replace professional mental health evaluation. The complex nature of psychological functioning cannot be fully captured by a brief self-assessment.</p>
+                    </div>
+                ;
+                
+                return profile;
+            }
+
+            // Helper function to count response types within a range of questions
+            function countResponsesInRange(responses, start, end) {
+                const counts = {};
+                
+                for (let i = start; i <= end; i++) {
+                    const response = responses['q' + i];
+                    if (response) {
+                        counts[response] = (counts[response] || 0) + 1;
+                    }
+                }
+                
+                return counts;
+            }
+
+            // Get the most frequent response type
+            function getMostFrequent(counts) {
+                let maxCount = 0;
+                let mostFrequent = null;
+                
+                for (const [type, count] of Object.entries(counts)) {
+                    if (count > maxCount) {
+                        maxCount = count;
+                        mostFrequent = type;
+                    }
+                }
+                
+                return mostFrequent;
+            }
+
+            // Generate Defense Organization profile
+            function generateDefenseProfile(defenseCounts) {
+                const primaryDefense = getMostFrequent(defenseCounts);
+                
+                const defenseProfiles = {
+                    'intellectualization': 
+                        <h3>Defense Organization</h3>
+                        <p>Your responses suggest a tendency toward intellectualizing defenses, whereby emotional content is managed through cognitive processes. This pattern often develops when emotions are experienced as overwhelming or dangerous in early development, leading to a defensive separation between thoughts and feelings.</p>
+                        <p class="citation">Vaillant, G. E. (1992). Ego Mechanisms of Defense: A Guide for Clinicians and Researchers. American Psychiatric Publishing.</p>
+                    ,
+                    'displacement': 
+                        <h3>Defense Organization</h3>
+                        <p>Your responses indicate a pattern of displacement defenses, where uncomfortable feelings are transferred from their original source to safer, less threatening targets. This defensive structure often emerges when direct expression of feelings toward primary figures was discouraged or punished in formative relationships.</p>
+                        <p class="citation">Freud, A. (1936). The Ego and the Mechanisms of Defense. International Universities Press.</p>
+                    ,
+                    'denial': 
+                        <h3>Defense Organization</h3>
+                        <p>Your responses suggest a reliance on denial mechanisms, characterized by avoiding acknowledgment of painful emotional realities. This defensive pattern often develops as protection against overwhelming experiences that exceed the psyche's capacity for integration at critical developmental periods.</p>
+                        <p class="citation">Dorpat, T. L. (1983). The cognitive arrest hypothesis of denial. International Journal of Psychoanalysis, 64, 47-58.</p>
+                    ,
+                    'reaction-formation': 
+                        <h3>Defense Organization</h3>
+                        <p>Your responses indicate a tendency toward reaction formation, wherein unacceptable impulses are transformed into their opposites. This defensive structure often emerges in development when experiencing or expressing certain feelings was perceived as threatening to important attachments.</p>
+                        <p class="citation">Brenner, C. (1982). The Mind in Conflict. International Universities Press.</p>
+                    ,
+                    'projection': 
+                        <h3>Defense Organization</h3>
+                        <p>Your responses suggest use of projective defenses, whereby disowned aspects of the self are attributed to others. This defensive pattern often develops when certain self-experiences were met with shame or rejection, creating the need to locate these experiences outside the self.</p>
+                        <p class="citation">McWilliams, N. (2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. Guilford Press.</p>
+                    ,
+                    'repression': 
+                        <h3>Defense Organization</h3>
+                        <p>Your responses suggest a pattern of repressive defenses, characterized by the exclusion of disturbing content from conscious awareness. This fundamental defense mechanism often develops to protect the psyche from overwhelming anxiety or conflicts that threaten psychological equilibrium.</p>
+                        <p class="citation">Erdelyi, M. H. (2006). The unified theory of repression. Behavioral and Brain Sciences, 29(5), 499-511.</p>
+                    ,
+                    'sublimation': 
+                        <h3>Defense Organization</h3>
+                        <p>Your responses indicate a tendency toward sublimation, where potentially problematic impulses are channeled into socially valued activities. This mature defense mechanism suggests psychological flexibility and adaptive capacity for transforming difficult emotional material.</p>
+                        <p class="citation">Vaillant, G. E. (2000). Adaptive mental mechanisms: Their role in a positive psychology. American Psychologist, 55(1), 89-98.</p>
+                    
+                };
+                
+                return defenseProfiles[primaryDefense] || 
+                    <h3>Defense Organization</h3>
+                    <p>Your responses suggest a complex defense structure that utilizes multiple mechanisms adaptively. This pattern of psychological flexibility enables you to employ different defensive strategies based on situational demands and psychological needs.</p>
+                    <p class="citation">Cramer, P. (2006). Protecting the Self: Defense Mechanisms in Action. Guilford Press.</p>
+                ;
+            }
+
+            // Generate Psychosexual Development profile
+            function generatePsychosexualProfile(psychosexualCounts) {
+                const primaryLevel = getMostFrequent(psychosexualCounts);
+                
+                const psychosexualProfiles = {
+                    'oral': 
+                        <h3>Psychosexual Development</h3>
+                        <p>Your responses suggest themes associated with oral developmental concerns, including issues of trust, dependency, and emotional nourishment. In classical psychoanalytic theory, this constellation may reflect developmental experiences that activated concerns about having basic dependency needs adequately met.</p>
+                        <p class="citation">Abraham, K. (1927). The influence of oral erotism on character-formation. In Selected Papers on Psychoanalysis. Hogarth Press.</p>
+                    ,
+                    'anal': 
+                        <h3>Psychosexual Development</h3>
+                        <p>Your responses indicate themes associated with anal developmental concerns, including issues of control, order, and autonomy. In psychoanalytic understanding, this pattern often reflects developmental experiences around toilet training and early autonomy that emphasized regulation, control, and compliance.</p>
+                        <p class="citation">Jones, E. (1918). Anal erotic character traits. Journal of Abnormal Psychology, 13(5), 261-284.</p>
+                    ,
+                    'phallic': 
+                        <h3>Psychosexual Development</h3>
+                        <p>Your responses suggest themes associated with phallic developmental concerns, including assertiveness, competition, and recognition. In classical theory, this constellation often reflects oedipal-phase experiences that shaped attitudes toward ambition, status, and competitive striving.</p>
+                        <p class="citation">Freud, S. (1924). The dissolution of the Oedipus complex. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
+                    ,
+                    'genital': 
+                        <h3>Psychosexual Development</h3>
+                        <p>Your responses indicate a relatively integrated psychosexual development, suggesting successful navigation of earlier developmental phases. This pattern is associated with capacity for genuine intimacy, balanced assertiveness, and flexible approaches to both autonomy and dependence.</p>
+                        <p class="citation">Freud, S. (1923). The infantile genital organization. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
+                    ,
+                    'id': 
+                        <h3>Psychosexual Development</h3>
+                        <p>Your responses suggest a psychological organization with prominent id influences, prioritizing pleasure, spontaneity, and immediate gratification. While this orientation provides vitality and creativity, it may occasionally conflict with external demands or long-term goals.</p>
+                        <p class="citation">Freud, S. (1923). The ego and the id. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
+                    ,
+                    'superego': 
+                        <h3>Psychosexual Development</h3>
+                        <p>Your responses indicate a psychological organization with prominent superego influences, emphasizing moral standards, ideals, and social expectations. This orientation provides ethical guidance but may sometimes manifest as excessive self-criticism or rigid adherence to internalized standards.</p>
+                        <p class="citation">Strachey, J. (1961). The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX (1923-1925): The Ego and the Id and Other Works.</p>
+                    ,
+                    'ego': 
+                        <h3>Psychosexual Development</h3>
+                        <p>Your responses suggest a psychological organization with strong ego functioning, characterized by reality-testing, practical judgment, and adaptive compromise. This orientation facilitates effective negotiation between internal desires and external demands.</p>
+                        <p class="citation">Hartmann, H. (1939). Ego psychology and the problem of adaptation. International Universities Press.</p>
+                    
+                };
+                
+                return psychosexualProfiles[primaryLevel] || 
+                    <h3>Psychosexual Development</h3>
+                    <p>Your responses suggest a balanced psychological organization with integration of id impulses, ego functions, and superego values. This equilibrium allows for both responsible functioning and access to pleasure, creativity, and aspirational striving.</p>
+                    <p class="citation">Brenner, C. (1982). The Mind in Conflict. International Universities Press.</p>
+                ;
+            }
+
+            // Generate Synthesis section based on overall pattern
+            function generateSynthesisProfile(responses) {
+                // Analyze overall pattern to determine dominant psychological organization
+                
+                // Count different types of responses across all questions
+                let counts = {};
+                for (const [key, value] of Object.entries(responses)) {
+                    counts[value] = (counts[value] || 0) + 1;
+                }
+                
+                // Check for patterns that might indicate specific personality organizations
+                
+                // Check for borderline features
+                const borderlineFeatures = ['splitting-neg', 'abandonment', 'fragmentation', 'disorganized'];
+                const borderlineCount = borderlineFeatures.reduce((count, feature) => 
+                    count + (counts[feature] || 0), 0);
+                
+                // Check for narcissistic features
+                const narcissisticFeatures = ['mirroring', 'fragmentation', 'idealization', 'external'];
+                const narcissisticCount = narcissisticFeatures.reduce((count, feature) => 
+                    count + (counts[feature] || 0), 0);
+                
+                // Check for neurotic features
+                const neuroticFeatures = ['intellectualization', 'displacement', 'reaction-formation', 'performance'];
+                const neuroticCount = neuroticFeatures.reduce((count, feature) => 
+                    count + (counts[feature] || 0), 0);
+                
+                // Check for psychotic features
+                const psychoticFeatures = ['projection', 'persecution', 'complex'];
+                const psychoticCount = psychoticFeatures.reduce((count, feature) => 
+                    count + (counts[feature] || 0), 0);
+                
+                // Check for healthy/integrated features
+                const healthyFeatures = ['sublimation', 'secure', 'genital', 'realistic', 'balanced'];
+                const healthyCount = healthyFeatures.reduce((count, feature) => 
+                    count + (counts[feature] || 0), 0);
+                
+                // Determine predominant organization
+                const featureCounts = [
+                    { type: 'borderline', count: borderlineCount },
+                    { type: 'narcissistic', count: narcissisticCount },
+                    { type: 'neurotic', count: neuroticCount },
+                    { type: 'psychotic', count: psychoticCount },
+                    { type: 'healthy', count: healthyCount }
+                ];
+                
+                const predominantOrganization = featureCounts.sort((a, b) => b.count - a.count)[0].type;
+                
+                // Generate synthesis based on predominant organization
+                const synthesisProfiles = {
+                    'borderline': 
+                        <h3>Synthesis</h3>
+                        <p>The integration of these patterns suggests elements of a borderline personality organization, characterized by concerns around abandonment, identity diffusion, and affective instability. This organization often reflects early attachment disruptions that interfered with the integration of positive and negative self and object representations.</p>
+                        <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+                    ,
+                    'narcissistic': 
+                        <h3>Synthesis</h3>
+                        <p>The integration of these patterns suggests elements of a narcissistic personality organization, characterized by vulnerability to self-fragmentation, idealization/devaluation dynamics, and sensitivity to narcissistic injury. This organization often reflects developmental experiences where validation was inconsistent or conditional upon meeting external standards.</p>
+                        <p class="citation">Kohut, H. (1971). The Analysis of the Self: A Systematic Approach to the Psychoanalytic Treatment of Narcissistic Personality Disorders. International Universities Press.</p>
+                    ,
+                    'neurotic': 
+                        <h3>Synthesis</h3>
+                        <p>The integration of these patterns suggests a neurotic personality organization, characterized by intact reality testing, relatively stable identity, and predominant use of second-order defenses. This organization reflects developmental achievement of object constancy, with conflicts primarily operating at the intrapsychic rather than interpersonal level.</p>
+                        <p class="citation">McWilliams, N. (2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. Guilford Press.</p>
+                    ,
+                    'psychotic': 
+                        <h3>Synthesis</h3>
+                        <p>The integration of these patterns suggests some features associated with psychotic processes, such as projective identification, persecution concerns, and potential for reality testing impairment under stress. These features often reflect early developmental experiences that created fundamental uncertainty about the boundaries between self and other, internal and external.</p>
+                        <p class="citation">Bion, W. R. (1967). Second Thoughts: Selected Papers on Psychoanalysis. Heinemann.</p>
+                    ,
+                    'healthy': 
+                        <h3>Synthesis</h3>
+                        <p>The integration of these patterns suggests a predominantly healthy personality organization, characterized by psychological flexibility, access to mature defenses, and capacity for both autonomy and intimacy. This organization reflects successful navigation of developmental challenges, allowing for integration of both positive and negative aspects of self and other representations.</p>
+                        <p class="citation">Vaillant, G. E. (2012). Triumphs of Experience: The Men of the Harvard Grant Study. Belknap Press.</p>
+                    
+                };
+                
+                return synthesisProfiles[predominantOrganization] || 
+                    <h3>Synthesis</h3>
+                    <p>The integration of these patterns suggests a complex personality organization with elements of multiple structures. This psychological flexibility enables adaptation across different contexts while maintaining core stability and cohesion. The capacity to employ various defenses and relational strategies represents a significant developmental achievement.</p>
+                    <p class="citation">McWilliams, N. (2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. Guilford Press.</p>
+                ;
+            }
         });
+    </script>
+</body>
+</html> Structure</h3>
+                        <p>Your responses suggest a relatively stable and resilient self-structure that can maintain cohesion even when facing setbacks. This capacity for self-regulation often reflects developmental experiences of consistent empathic attunement that facilitated integration of both positive and negative self-experiences.</p>
+                        <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
+                    ,
+                    'external': 
+                        <h3>Self Structure</h3>
+                        <p>Your responses indicate a tendency to locate responsibility outside the self when facing disappointments. While this protects against fragmentation, it may limit opportunities for growth through integrating both successes and failures into a complex, multifaceted self-experience.</p>
+                        <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+                    
+                };
+                
+                return selfProfiles[primaryNeed] || 
+                    <h3>Self Structure</h3>
+                    <p>Your responses suggest a multifaceted self-structure with balanced needs for validation, inspiration, and belonging. This integration of different selfobject needs allows for flexibility in maintaining self-cohesion across varying interpersonal contexts and life circumstances.</p>
+                    <p class="citation">Wolf, E. S. (1988). Treating the Self: Elements of Clinical Self Psychology. Guilford Press.</p>
+                ;
+            }
+
+
+ChatGPT said:
+Reasoned about code structure and design for 2m 57s
+Below is a revised version of your code. The fixes include:
+
+Removing stray code: The extra snippet after the closing </html> tag has been removed.
+
+Adding missing functions: Implementations for generating the “Object Relations,” “Self Structure,” “Symbolic Landscape,” and “Anxiety and Conflict” profiles have been added. These functions follow the same mapping style as your other sections.
+
+Minor cleanup: The duplicate submit handling was simplified and the event listeners streamlined.
+
+You can use the following complete HTML file:
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Psychoanalytic Self-Exploration</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Georgia', serif;
     }
     
-    // Assessment result generator
-    function generatePsychoanalyticProfile(responses) {
-        // Count frequency of different response types
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.7;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/simpleicons.svg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+    }
+    
+    header {
+      background-color: rgba(30, 41, 59, 0.95);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-bottom: 3px solid #111827;
+      position: relative;
+    }
+    
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
+      z-index: -1;
+    }
+    
+    nav {
+      background-color: rgba(17, 24, 39, 0.95);
+      padding: 0.8rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    nav ul li {
+      margin: 0 2rem;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      transition: all 0.3s;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      position: relative;
+    }
+    
+    nav ul li a:hover {
+      background-color: rgba(55, 65, 81, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .active {
+      background-color: #374151;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: all 0.3s;
+      transform: translateX(-50%);
+    }
+    
+    nav ul li a:hover::after,
+    .active::after {
+      width: 60%;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    section {
+      background-color: rgba(255, 255, 255, 0.97);
+      padding: 2.5rem;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      margin-bottom: 2rem;
+      border-top: 5px solid #1e293b;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    h1, h2, h3 {
+      color: #1e293b;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      position: relative;
+      font-family: 'Baskerville', 'Times New Roman', serif;
+    }
+    
+    h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #1e293b, #64748b);
+      margin-top: 10px;
+      border-radius: 3px;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #1e293b 0%, #111827 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(17, 24, 39, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      letter-spacing: 0.5px;
+      font-family: 'Georgia', serif;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(17, 24, 39, 0.6);
+    }
+    
+    .btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(17, 24, 39, 0.4);
+    }
+    
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #111827 0%, #1e293b 100%);
+      z-index: -1;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+    
+    .btn:hover::after {
+      opacity: 1;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .form-group {
+      margin-bottom: 1.8rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 1.5rem;
+    }
+    
+    .form-group:last-child {
+      border-bottom: none;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.8rem;
+      font-weight: bold;
+      color: #1e293b;
+    }
+    
+    .question {
+      font-size: 1.1rem;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+    
+    .radio-group {
+      margin-top: 0.8rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .radio-option {
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .radio-option input[type="radio"] {
+      margin-right: 10px;
+    }
+    
+    .radio-option label {
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      background-color: rgba(17, 24, 39, 0.95);
+      color: white;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #1e293b, #111827, #1e293b);
+    }
+    
+    .result-section {
+      background-color: rgba(255, 255, 255, 0.97);
+      padding: 2.5rem;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      margin-bottom: 2rem;
+      border-top: 5px solid #1e293b;
+    }
+    
+    .result-heading {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .result-content {
+      margin-bottom: 2rem;
+      text-align: justify;
+    }
+    
+    .citation {
+      font-style: italic;
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      border-left: 3px solid #e5e7eb;
+    }
+    
+    .theory-reference {
+      background-color: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    
+    .theory-reference h4 {
+      color: #1e293b;
+      margin-bottom: 1rem;
+      font-family: 'Baskerville', 'Times New Roman', serif;
+    }
+    
+    blockquote {
+      font-style: italic;
+      border-left: 4px solid #64748b;
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      color: #4b5563;
+    }
+    
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      nav ul li {
+        margin: 0.5rem;
+      }
+      
+      .container {
+        padding: 0 1rem;
+      }
+      
+      section {
+        padding: 1.5rem;
+      }
+      
+      .btn {
+        padding: 0.8rem 1.5rem;
+      }
+      
+      .result-content {
+        padding: 0;
+      }
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 1rem;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      font-family: 'Baskerville', 'Times New Roman', serif;
+    }
+    
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Psychoanalytic Self-Exploration</h1>
+      <p>Discover your unconscious dynamics through structured inquiry</p>
+    </div>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="#home" class="nav-link active" data-section="home">Introduction</a></li>
+      <li><a href="#about" class="nav-link" data-section="about">Theory</a></li>
+      <li><a href="#assessment" class="nav-link" data-section="assessment">Assessment</a></li>
+    </ul>
+  </nav>
+  
+  <div class="container">
+    <!-- Home Section -->
+    <section id="home" class="section">
+      <h2>Welcome to Psychoanalytic Self-Exploration</h2>
+      <p>This assessment draws upon classical and contemporary psychoanalytic theories to offer insights into your unconscious dynamics, defense mechanisms, and relational patterns. Through a series of carefully structured questions, we will explore the hidden dimensions of your psychological makeup.</p>
+      
+      <h3>The Psychoanalytic Approach</h3>
+      <p>Psychoanalysis, founded by Sigmund Freud and developed by subsequent theorists such as Klein, Winnicott, and Kohut, proposes that much of our mental life operates below the threshold of consciousness. The patterns established in our early relationships continue to influence our present functioning in ways we may not fully recognize.</p>
+      
+      <h3>What to Expect</h3>
+      <p>This assessment consists of 15 questions drawing from various psychoanalytic frameworks including ego psychology, object relations theory, and self psychology. Upon completion, you will receive a brief interpretive analysis of your responses framed within relevant psychoanalytic concepts.</p>
+      
+      <blockquote>"The ego is not master in its own house." — Sigmund Freud</blockquote>
+      
+      <p>Please note that this assessment is designed for educational and self-reflective purposes only and does not constitute clinical diagnosis or treatment.</p>
+      
+      <a href="#assessment" class="btn start-assessment">Begin Assessment</a>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="section hidden">
+      <h2>Theoretical Foundations</h2>
+      
+      <h3>Psychodynamic Diagnostic Manual (PDM)</h3>
+      <p>This assessment draws inspiration from the Psychodynamic Diagnostic Manual, which offers a multidimensional framework for understanding personality structure, mental functioning, and subjective experience. Unlike symptom-based approaches, the PDM considers the whole person in context, including strengths and vulnerabilities.</p>
+      
+      <h3>Key Theoretical Frameworks</h3>
+      
+      <div class="theory-reference">
+        <h4>Drive Theory</h4>
+        <p>Classical Freudian theory posits that human behavior is motivated by unconscious drives, primarily libido (sexual/life drive) and aggression (death drive). The management of these drives shapes personality development and defensive structures.</p>
+        <p class="citation">Freud, S. (1920). Beyond the Pleasure Principle. The Standard Edition of the Complete Psychological Works of Sigmund Freud.</p>
+      </div>
+      
+      <div class="theory-reference">
+        <h4>Object Relations Theory</h4>
+        <p>This framework examines how early relationships with significant others become internalized as mental representations that guide expectations and behaviors in subsequent relationships.</p>
+        <p class="citation">Klein, M. (1946). Notes on Some Schizoid Mechanisms. International Journal of Psychoanalysis, 27, 99-110.</p>
+        <p class="citation">Winnicott, D.W. (1960). The Theory of the Parent-Infant Relationship. International Journal of Psychoanalysis, 41, 585-595.</p>
+      </div>
+      
+      <div class="theory-reference">
+        <h4>Self Psychology</h4>
+        <p>Developed by Heinz Kohut, self psychology focuses on how individuals develop a cohesive sense of self through empathic responsiveness from others, particularly through mirroring, idealizing, and twinship selfobject experiences.</p>
+        <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
+      </div>
+      
+      <div class="theory-reference">
+        <h4>Attachment Theory</h4>
+        <p>While not strictly psychoanalytic in origin, attachment theory has been integrated into contemporary psychoanalytic thinking. It examines how early attachment patterns (secure, anxious, avoidant, disorganized) influence emotional regulation and interpersonal functioning throughout life.</p>
+        <p class="citation">Bowlby, J. (1969). Attachment and Loss, Vol. 1: Attachment. Basic Books.</p>
+        <p class="citation">Fonagy, P. (2001). Attachment Theory and Psychoanalysis. Other Press.</p>
+      </div>
+      
+      <a href="#assessment" class="btn start-assessment">Proceed to Assessment</a>
+    </section>
+    
+    <!-- Assessment Section -->
+    <section id="assessment" class="section hidden">
+      <h2>Psychoanalytic Self-Assessment</h2>
+      <p>Below are 15 questions based on psychoanalytic theory. Please respond to each honestly for the most accurate reflection of your unconscious dynamics. There are no right or wrong answers; each response offers insight into different aspects of psychological organization.</p>
+      
+      <form id="assessment-form">
+        <!-- Defense Mechanisms -->
+        <div class="form-group">
+          <h3>Part I: Defense Mechanisms</h3>
+          
+          <div class="question">1. When faced with a painful emotion, I typically:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q1-a" name="q1" value="intellectualization" required>
+              <label for="q1-a">Analyze it intellectually, focusing on understanding rather than feeling it</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q1-b" name="q1" value="displacement">
+              <label for="q1-b">Find myself getting irritated or upset about unrelated matters</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q1-c" name="q1" value="denial">
+              <label for="q1-c">Often don't acknowledge the feeling and proceed as if nothing is wrong</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q1-d" name="q1" value="reaction-formation">
+              <label for="q1-d">Express the opposite emotion (e.g., being overly positive when actually sad)</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">2. When someone criticizes me, I tend to:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q2-a" name="q2" value="projection" required>
+              <label for="q2-a">Feel they're being unfair or hypocritical</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q2-b" name="q2" value="introjection">
+              <label for="q2-b">Immediately accept the criticism and feel badly about myself</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q2-c" name="q2" value="rationalization">
+              <label for="q2-c">Explain why my actions were reasonable under the circumstances</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q2-d" name="q2" value="isolation">
+              <label for="q2-d">Acknowledge the facts but remain emotionally detached from the criticism</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">3. I find that my unacceptable urges or desires:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q3-a" name="q3" value="repression" required>
+              <label for="q3-a">Are generally not part of my conscious awareness</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q3-b" name="q3" value="sublimation">
+              <label for="q3-b">Often get channeled into creative, work, or altruistic activities</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q3-c" name="q3" value="regression">
+              <label for="q3-c">Sometimes lead me to behave in more childlike or immature ways</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q3-d" name="q3" value="undoing">
+              <label for="q3-d">Prompt me to engage in compensatory behaviors to "make up for" them</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Object Relations -->
+        <div class="form-group">
+          <h3>Part II: Object Relations</h3>
+          
+          <div class="question">4. In close relationships, I most often worry about:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q4-a" name="q4" value="abandonment" required>
+              <label for="q4-a">Being abandoned or left alone</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q4-b" name="q4" value="engulfment">
+              <label for="q4-b">Losing my independence or being controlled</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q4-c" name="q4" value="persecution">
+              <label for="q4-c">Being hurt, exploited, or betrayed</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q4-d" name="q4" value="adequacy">
+              <label for="q4-d">Not being good enough or meeting expectations</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">5. When I'm disappointed by someone important to me, I typically:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q5-a" name="q5" value="splitting-neg" required>
+              <label for="q5-a">Find it difficult to remember their positive qualities</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q5-b" name="q5" value="identification">
+              <label for="q5-b">Take responsibility and blame myself for expecting too much</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q5-c" name="q5" value="idealization">
+              <label for="q5-c">Make excuses for them and maintain a positive view of them</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q5-d" name="q5" value="ambivalence">
+              <label for="q5-d">Feel conflicted, seeing both their positive and negative attributes simultaneously</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">6. My relationship patterns tend to be:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q6-a" name="q6" value="anxious" required>
+              <label for="q6-a">Intense with concerns about whether others truly care for me</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q6-b" name="q6" value="avoidant">
+              <label for="q6-b">Somewhat distant, with me valuing independence and self-sufficiency</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q6-c" name="q6" value="secure">
+              <label for="q6-c">Generally stable with a good balance of closeness and autonomy</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q6-d" name="q6" value="disorganized">
+              <label for="q6-d">Complicated with conflicting desires for closeness and distance</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Psychosexual Development -->
+        <div class="form-group">
+          <h3>Part III: Psychosexual Development</h3>
+          
+          <div class="question">7. Which of these traits best describes you in your daily life?</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q7-a" name="q7" value="oral" required>
+              <label for="q7-a">Dependent on others, with needs for emotional nourishment and support</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q7-b" name="q7" value="anal">
+              <label for="q7-b">Orderly and controlled, with emphasis on rules, cleanliness, or precision</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q7-c" name="q7" value="phallic">
+              <label for="q7-c">Competitive, achievement-oriented, with concerns about status or recognition</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q7-d" name="q7" value="genital">
+              <label for="q7-d">Balanced approach to work and relationships with capacity for genuine intimacy</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">8. In making decisions, I tend to prioritize:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q8-a" name="q8" value="id" required>
+              <label for="q8-a">What would bring me pleasure or satisfaction</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q8-b" name="q8" value="superego">
+              <label for="q8-b">What is right, moral, or what others would approve of</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q8-c" name="q8" value="ego">
+              <label for="q8-c">What is realistic and practical in the situation</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q8-d" name="q8" value="balanced">
+              <label for="q8-d">A balance of my desires, moral values, and practical reality</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Self Psychology and Narcissism -->
+        <div class="form-group">
+          <h3>Part IV: Self Psychology</h3>
+          
+          <div class="question">9. What do you most seek from important relationships?</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q9-a" name="q9" value="mirroring" required>
+              <label for="q9-a">Validation, appreciation, and recognition of my qualities and accomplishments</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q9-b" name="q9" value="idealizing">
+              <label for="q9-b">Someone strong and capable I can admire and feel protected by</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q9-c" name="q9" value="twinship">
+              <label for="q9-c">A sense of similarity and belonging with someone who understands me</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q9-d" name="q9" value="altruistic">
+              <label for="q9-d">Opportunities to care for and support others</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">10. When I experience a failure or setback, I typically feel:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q10-a" name="q10" value="fragmentation" required>
+              <label for="q10-a">A profound sense of shame and fragmentation of my self-worth</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q10-b" name="q10" value="realistic">
+              <label for="q10-b">Disappointed but able to maintain perspective on my overall value</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q10-c" name="q10" value="external">
+              <label for="q10-c">That external factors or other people were primarily responsible</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q10-d" name="q10" value="growth">
+              <label for="q10-d">That it provides an opportunity to learn and improve</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dreams and Symbolism -->
+        <div class="form-group">
+          <h3>Part V: Dreams and Symbolism</h3>
+          
+          <div class="question">11. Which of these recurring dream themes resonates most with you?</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q11-a" name="q11" value="falling" required>
+              <label for="q11-a">Falling or losing control</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q11-b" name="q11" value="pursuit">
+              <label for="q11-b">Being pursued or threatened</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q11-c" name="q11" value="unprepared">
+              <label for="q11-c">Being unprepared for an important event or test</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q11-d" name="q11" value="flying">
+              <label for="q11-d">Flying or transcending limitations</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">12. Which symbolic image carries the most emotional resonance for you?</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q12-a" name="q12" value="water" required>
+              <label for="q12-a">Deep water or ocean</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q12-b" name="q12" value="enclosure">
+              <label for="q12-b">An enclosed space (cave, room, etc.)</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q12-c" name="q12" value="height">
+              <label for="q12-c">A tall structure (tower, mountain, etc.)</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q12-d" name="q12" value="threshold">
+              <label for="q12-d">A doorway, bridge, or threshold</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Anxiety and Conflict -->
+        <div class="form-group">
+          <h3>Part VI: Anxiety and Conflict</h3>
+          
+          <div class="question">13. My anxiety is most often triggered by:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q13-a" name="q13" value="separation" required>
+              <label for="q13-a">Separation from loved ones or being alone</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q13-b" name="q13" value="performance">
+              <label for="q13-b">Situations where my performance or competence is evaluated</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q13-c" name="q13" value="social">
+              <label for="q13-c">Social situations or potential judgment from others</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q13-d" name="q13" value="existential">
+              <label for="q13-d">Thoughts about mortality or life's meaning</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">14. The internal conflict I struggle with most involves:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q14-a" name="q14" value="dependency" required>
+              <label for="q14-a">Dependence versus independence</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q14-b" name="q14" value="expression">
+              <label for="q14-b">Emotional expression versus control</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q14-c" name="q14" value="selfother">
+              <label for="q14-c">Self-interest versus care for others</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q14-d" name="q14" value="competence">
+              <label for="q14-d">Striving for achievement versus accepting limitations</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="question">15. When contemplating my childhood experiences, I believe they primarily:</div>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="q15-a" name="q15" value="secure" required>
+              <label for="q15-a">Provided security and confidence that continues to support me</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q15-b" name="q15" value="ambivalent">
+              <label for="q15-b">Were inconsistent, leading to uncertainty in relationships</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q15-c" name="q15" value="avoidant">
+              <label for="q15-c">Taught me to rely on myself rather than expecting support</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="q15-d" name="q15" value="complex">
+              <label for="q15-d">Were complex with both nurturing and difficult elements</label>
+            </div>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn">Submit Assessment</button>
+      </form>
+      
+      <div id="results" class="hidden">
+        <div class="result-section">
+          <h2 class="result-heading">Your Psychoanalytic Profile</h2>
+          <div id="result-content" class="result-content">
+            <!-- Results will be dynamically inserted here by JavaScript -->
+          </div>
+          <a href="#home" class="btn return-home">Return to Introduction</a>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <footer>
+    <p>&copy; 2025 Psychoanalytic Self-Exploration. For educational purposes only.</p>
+  </footer>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Navigation handling
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sections = document.querySelectorAll('.section');
+      
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          navLinks.forEach(link => link.classList.remove('active'));
+          this.classList.add('active');
+          const targetSection = this.getAttribute('data-section');
+          sections.forEach(section => {
+            if (section.id === targetSection) {
+              section.classList.remove('hidden');
+            } else {
+              section.classList.add('hidden');
+            }
+          });
+        });
+      });
+      
+      // Start assessment button
+      const startAssessmentBtns = document.querySelectorAll('.start-assessment');
+      startAssessmentBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          navLinks.forEach(link => link.classList.remove('active'));
+          document.querySelector('[data-section="assessment"]').classList.add('active');
+          sections.forEach(section => {
+            if (section.id === 'assessment') {
+              section.classList.remove('hidden');
+            } else {
+              section.classList.add('hidden');
+            }
+          });
+          document.getElementById('assessment').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+      
+      // Form submission handling
+      const assessmentForm = document.getElementById('assessment-form');
+      const resultsDiv = document.getElementById('results');
+      const resultContent = document.getElementById('result-content');
+      
+      if (assessmentForm) {
+        assessmentForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const formData = new FormData(assessmentForm);
+          const responses = {};
+          for (const [name, value] of formData.entries()) {
+            responses[name] = value;
+          }
+          const profileHtml = generatePsychoanalyticProfile(responses);
+          resultContent.innerHTML = profileHtml;
+          assessmentForm.style.display = 'none';
+          resultsDiv.classList.remove('hidden');
+          resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Backup submit check
+        const submitButton = document.querySelector('button[type="submit"]');
+        if (submitButton) {
+          submitButton.addEventListener('click', function(e) {
+            const isValid = Array.from(document.querySelectorAll('input[type="radio"][required]'))
+              .every(input => {
+                const name = input.getAttribute('name');
+                return document.querySelector(`input[name="${name}"]:checked`);
+              });
+            if (!isValid) {
+              alert("Please answer all questions before submitting.");
+            }
+          });
+        }
+      }
+      
+      // Return home button
+      const returnHomeBtn = document.querySelector('.return-home');
+      if (returnHomeBtn) {
+        returnHomeBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          navLinks.forEach(link => link.classList.remove('active'));
+          document.querySelector('[data-section="home"]').classList.add('active');
+          sections.forEach(section => {
+            if (section.id === 'home') {
+              section.classList.remove('hidden');
+            } else {
+              section.classList.add('hidden');
+            }
+          });
+          if (assessmentForm) {
+            assessmentForm.style.display = 'block';
+            assessmentForm.reset();
+          }
+          resultsDiv.classList.add('hidden');
+          document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+      
+      // Profile generator functions
+      
+      function generatePsychoanalyticProfile(responses) {
         const defenseMechanisms = countResponsesInRange(responses, 1, 3);
         const objectRelations = countResponsesInRange(responses, 4, 6);
         const psychosexualDev = countResponsesInRange(responses, 7, 8);
@@ -978,382 +2176,436 @@ document.addEventListener('DOMContentLoaded', function() {
         const symbolism = countResponsesInRange(responses, 11, 12);
         const anxiety = countResponsesInRange(responses, 13, 15);
         
-        // Generate sections based on most frequent responses
         let profile = '';
-        
-        // Defense Organization section
         profile += generateDefenseProfile(defenseMechanisms);
-        
-        // Object Relations section
         profile += generateObjectRelationsProfile(objectRelations);
-        
-        // Psychosexual Development section
         profile += generatePsychosexualProfile(psychosexualDev);
-        
-        // Self Structure section
         profile += generateSelfStructureProfile(selfPsychology);
-        
-        // Symbolic Landscape section
         profile += generateSymbolicProfile(symbolism);
-        
-        // Anxiety and Conflict section
         profile += generateAnxietyProfile(anxiety);
-        
-        // Synthesis - integrate all sections
         profile += generateSynthesisProfile(responses);
         
-        // Add disclaimer
         profile += `
-            <div class="theory-reference">
-                <h4>Important Note</h4>
-                <p>This assessment is designed for educational purposes only and does not constitute a clinical diagnosis or replace professional mental health evaluation. The complex nature of psychological functioning cannot be fully captured by a brief self-assessment.</p>
-            </div>
+          <div class="theory-reference">
+            <h4>Important Note</h4>
+            <p>This assessment is designed for educational purposes only and does not constitute a clinical diagnosis or replace professional mental health evaluation. The complex nature of psychological functioning cannot be fully captured by a brief self-assessment.</p>
+          </div>
         `;
-        
         return profile;
-    }
-
-    // Helper function to count response types within a range of questions
-    function countResponsesInRange(responses, start, end) {
+      }
+      
+      function countResponsesInRange(responses, start, end) {
         const counts = {};
-        
         for (let i = start; i <= end; i++) {
-            const response = responses['q' + i];
-            if (response) {
-                counts[response] = (counts[response] || 0) + 1;
-            }
+          const response = responses['q' + i];
+          if (response) {
+            counts[response] = (counts[response] || 0) + 1;
+          }
         }
-        
         return counts;
-    }
-
-    // Get the most frequent response type
-    function getMostFrequent(counts) {
+      }
+      
+      function getMostFrequent(counts) {
         let maxCount = 0;
         let mostFrequent = null;
-        
         for (const [type, count] of Object.entries(counts)) {
-            if (count > maxCount) {
-                maxCount = count;
-                mostFrequent = type;
-            }
+          if (count > maxCount) {
+            maxCount = count;
+            mostFrequent = type;
+          }
+        }
+        return mostFrequent;
+      }
+      
+      function generateDefenseProfile(defenseCounts) {
+        const primaryDefense = getMostFrequent(defenseCounts);
+        const defenseProfiles = {
+          'intellectualization': `
+            <h3>Defense Organization</h3>
+            <p>Your responses suggest a tendency toward intellectualizing defenses, whereby emotional content is managed through cognitive processes. This pattern often develops when emotions are experienced as overwhelming or dangerous in early development, leading to a defensive separation between thoughts and feelings.</p>
+            <p class="citation">Vaillant, G. E. (1992). Ego Mechanisms of Defense: A Guide for Clinicians and Researchers. American Psychiatric Publishing.</p>
+          `,
+          'displacement': `
+            <h3>Defense Organization</h3>
+            <p>Your responses indicate a pattern of displacement defenses, where uncomfortable feelings are transferred from their original source to safer, less threatening targets. This defensive structure often emerges when direct expression of feelings toward primary figures was discouraged or punished in formative relationships.</p>
+            <p class="citation">Freud, A. (1936). The Ego and the Mechanisms of Defense. International Universities Press.</p>
+          `,
+          'denial': `
+            <h3>Defense Organization</h3>
+            <p>Your responses suggest a reliance on denial mechanisms, characterized by avoiding acknowledgment of painful emotional realities. This defensive pattern often develops as protection against overwhelming experiences that exceed the psyche's capacity for integration at critical developmental periods.</p>
+            <p class="citation">Dorpat, T. L. (1983). The cognitive arrest hypothesis of denial. International Journal of Psychoanalysis, 64, 47-58.</p>
+          `,
+          'reaction-formation': `
+            <h3>Defense Organization</h3>
+            <p>Your responses indicate a tendency toward reaction formation, wherein unacceptable impulses are transformed into their opposites. This defensive structure often emerges in development when experiencing or expressing certain feelings was perceived as threatening to important attachments.</p>
+            <p class="citation">Brenner, C. (1982). The Mind in Conflict. International Universities Press.</p>
+          `,
+          'projection': `
+            <h3>Defense Organization</h3>
+            <p>Your responses suggest use of projective defenses, whereby disowned aspects of the self are attributed to others. This defensive pattern often develops when certain self-experiences were met with shame or rejection, creating the need to locate these experiences outside the self.</p>
+            <p class="citation">McWilliams, N. (2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. Guilford Press.</p>
+          `,
+          'repression': `
+            <h3>Defense Organization</h3>
+            <p>Your responses suggest a pattern of repressive defenses, characterized by the exclusion of disturbing content from conscious awareness. This fundamental defense mechanism often develops to protect the psyche from overwhelming anxiety or conflicts that threaten psychological equilibrium.</p>
+            <p class="citation">Erdelyi, M. H. (2006). The unified theory of repression. Behavioral and Brain Sciences, 29(5), 499-511.</p>
+          `,
+          'sublimation': `
+            <h3>Defense Organization</h3>
+            <p>Your responses indicate a tendency toward sublimation, where potentially problematic impulses are channeled into socially valued activities. This mature defense mechanism suggests psychological flexibility and adaptive capacity for transforming difficult emotional material.</p>
+            <p class="citation">Vaillant, G. E. (2000). Adaptive mental mechanisms: Their role in a positive psychology. American Psychologist, 55(1), 89-98.</p>
+          `
+        };
+        return defenseProfiles[primaryDefense] || `
+          <h3>Defense Organization</h3>
+          <p>Your responses suggest a complex defense structure that utilizes multiple mechanisms adaptively. This pattern of psychological flexibility enables you to employ different defensive strategies based on situational demands and psychological needs.</p>
+          <p class="citation">Cramer, P. (2006). Protecting the Self: Defense Mechanisms in Action. Guilford Press.</p>
+        `;
+      }
+      
+      function generateObjectRelationsProfile(objectRelationsCounts) {
+        const primaryRelation = getMostFrequent(objectRelationsCounts);
+        const objectProfiles = {
+          'abandonment': `
+            <h3>Object Relations</h3>
+            <p>Your responses indicate a heightened sensitivity to abandonment, suggesting that fears of being left alone or rejected may influence your interpersonal relationships.</p>
+            <p class="citation">Klein, M. (1946). Notes on Some Schizoid Mechanisms. International Journal of Psychoanalysis, 27, 99-110.</p>
+          `,
+          'engulfment': `
+            <h3>Object Relations</h3>
+            <p>Your responses reveal concerns about losing independence or being controlled, reflecting an internal conflict between closeness and autonomy in relationships.</p>
+            <p class="citation">Winnicott, D.W. (1960). The Theory of the Parent-Infant Relationship. International Journal of Psychoanalysis, 41, 585-595.</p>
+          `,
+          'persecution': `
+            <h3>Object Relations</h3>
+            <p>Your responses suggest a preoccupation with the fear of being hurt, exploited, or betrayed in relationships, possibly reflecting early experiences of mistrust.</p>
+            <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+          `,
+          'adequacy': `
+            <h3>Object Relations</h3>
+            <p>Your responses indicate concerns about not being good enough, which might lead to difficulties in accepting love and support from others.</p>
+            <p class="citation">Fonagy, P. (2001). Attachment Theory and Psychoanalysis. Other Press.</p>
+          `,
+          'splitting-neg': `
+            <h3>Object Relations</h3>
+            <p>Your responses suggest a tendency to view others in extremes, which may contribute to unstable relationships and challenges in integrating both positive and negative aspects of significant figures.</p>
+            <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+          `,
+          'identification': `
+            <h3>Object Relations</h3>
+            <p>Your responses imply that you internalize criticism, which might lead to a fragile self-concept and heightened sensitivity to others' opinions.</p>
+            <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
+          `,
+          'idealization': `
+            <h3>Object Relations</h3>
+            <p>Your responses reveal a tendency to maintain an overly positive view of others, potentially as a defense against acknowledging their flaws.</p>
+            <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
+          `,
+          'ambivalence': `
+            <h3>Object Relations</h3>
+            <p>Your responses indicate conflicting feelings in relationships, suggesting difficulty in reconciling love and resentment towards others.</p>
+            <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+          `,
+          'anxious': `
+            <h3>Object Relations</h3>
+            <p>Your responses suggest an anxious attachment style, marked by a deep-seated need for reassurance and fear of rejection in relationships.</p>
+            <p class="citation">Bowlby, J. (1969). Attachment and Loss, Vol. 1: Attachment. Basic Books.</p>
+          `,
+          'avoidant': `
+            <h3>Object Relations</h3>
+            <p>Your responses indicate an avoidant pattern, valuing independence and possibly keeping others at an emotional distance to protect yourself.</p>
+            <p class="citation">Fonagy, P. (2001). Attachment Theory and Psychoanalysis. Other Press.</p>
+          `,
+          'secure': `
+            <h3>Object Relations</h3>
+            <p>Your responses reflect a secure attachment style, suggesting that you are capable of forming stable and balanced relationships.</p>
+            <p class="citation">Bowlby, J. (1969). Attachment and Loss, Vol. 1: Attachment. Basic Books.</p>
+          `,
+          'disorganized': `
+            <h3>Object Relations</h3>
+            <p>Your responses suggest a disorganized approach to relationships, marked by contradictory desires for closeness and distance.</p>
+            <p class="citation">Main, M., &amp; Solomon, J. (1990). Procedures for identifying infants as disorganized/disoriented during the Ainsworth Strange Situation. University of Chicago Press.</p>
+          `
+        };
+        return objectProfiles[primaryRelation] || `
+          <h3>Object Relations</h3>
+          <p>Your responses suggest a multifaceted approach to relationships, indicating both a desire for closeness and an awareness of potential vulnerabilities in interpersonal dynamics.</p>
+          <p class="citation">McWilliams, N. (2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. Guilford Press.</p>
+        `;
+      }
+      
+      function generatePsychosexualProfile(psychosexualCounts) {
+        const primaryLevel = getMostFrequent(psychosexualCounts);
+        const psychosexualProfiles = {
+          'oral': `
+            <h3>Psychosexual Development</h3>
+            <p>Your responses suggest themes associated with oral developmental concerns, including issues of trust, dependency, and emotional nourishment. This may reflect early experiences that emphasized the need for care and connection.</p>
+            <p class="citation">Abraham, K. (1927). The influence of oral erotism on character-formation. In Selected Papers on Psychoanalysis. Hogarth Press.</p>
+          `,
+          'anal': `
+            <h3>Psychosexual Development</h3>
+            <p>Your responses indicate themes associated with anal developmental concerns, focusing on issues of control, order, and autonomy. Such patterns often emerge from early experiences that emphasized regulation and discipline.</p>
+            <p class="citation">Jones, E. (1918). Anal erotic character traits. Journal of Abnormal Psychology, 13(5), 261-284.</p>
+          `,
+          'phallic': `
+            <h3>Psychosexual Development</h3>
+            <p>Your responses suggest themes associated with phallic developmental concerns, including assertiveness, competition, and recognition. These responses may reflect the influence of the oedipal phase on your self-perception.</p>
+            <p class="citation">Freud, S. (1924). The dissolution of the Oedipus complex. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
+          `,
+          'genital': `
+            <h3>Psychosexual Development</h3>
+            <p>Your responses indicate a relatively integrated psychosexual development, suggesting successful navigation of earlier developmental phases and a balanced capacity for intimacy and autonomy.</p>
+            <p class="citation">Freud, S. (1923). The infantile genital organization. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
+          `,
+          'id': `
+            <h3>Psychosexual Development</h3>
+            <p>Your responses suggest a psychological organization with prominent id influences, emphasizing pleasure and spontaneity. This approach can foster creativity but might conflict with societal expectations.</p>
+            <p class="citation">Freud, S. (1923). The ego and the id. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
+          `,
+          'superego': `
+            <h3>Psychosexual Development</h3>
+            <p>Your responses indicate a psychological organization with strong superego influences, characterized by a focus on moral standards and ideals. This can guide behavior but may also lead to self-criticism.</p>
+            <p class="citation">Strachey, J. (1961). The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX (1923-1925): The Ego and the Id and Other Works.</p>
+          `,
+          'ego': `
+            <h3>Psychosexual Development</h3>
+            <p>Your responses suggest a well-integrated ego, capable of negotiating internal desires and external demands with balanced judgment and adaptability.</p>
+            <p class="citation">Hartmann, H. (1939). Ego psychology and the problem of adaptation. International Universities Press.</p>
+          `
+        };
+        return psychosexualProfiles[primaryLevel] || `
+          <h3>Psychosexual Development</h3>
+          <p>Your responses suggest a balanced integration of various psychosexual stages, allowing for both the enjoyment of life’s pleasures and the management of its challenges.</p>
+          <p class="citation">Brenner, C. (1982). The Mind in Conflict. International Universities Press.</p>
+        `;
+      }
+      
+      function generateSelfStructureProfile(selfCounts) {
+        const primaryNeed = getMostFrequent(selfCounts);
+        const selfProfiles = {
+          'mirroring': `
+            <h3>Self Structure</h3>
+            <p>Your responses indicate a strong need for validation and recognition from others, reflecting a reliance on mirroring experiences to build your self-image.</p>
+            <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
+          `,
+          'idealizing': `
+            <h3>Self Structure</h3>
+            <p>Your responses suggest that you seek strong, capable figures to idealize, which can help stabilize your self-image by providing models of strength and competence.</p>
+            <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
+          `,
+          'twinship': `
+            <h3>Self Structure</h3>
+            <p>Your responses point to a need for a sense of similarity and belonging, which supports a cohesive self-identity through shared experiences and mutual understanding.</p>
+            <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
+          `,
+          'altruistic': `
+            <h3>Self Structure</h3>
+            <p>Your responses suggest that caring for others and engaging in altruistic behavior is central to your self-identity, contributing to a self-structure that values connection and empathy.</p>
+            <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
+          `,
+          'external': `
+            <h3>Self Structure</h3>
+            <p>Your responses indicate a tendency to attribute responsibility for setbacks to external factors, which may serve as a defense against internal fragmentation but could hinder personal growth.</p>
+            <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+          `
+        };
+        return selfProfiles[primaryNeed] || `
+          <h3>Self Structure</h3>
+          <p>Your responses suggest a multifaceted self-structure with balanced needs for validation, inspiration, and belonging. This integration of different selfobject needs allows for flexibility in maintaining self-cohesion across varying interpersonal contexts and life circumstances.</p>
+          <p class="citation">Wolf, E. S. (1988). Treating the Self: Elements of Clinical Self Psychology. Guilford Press.</p>
+        `;
+      }
+      
+      function generateSymbolicProfile(symbolismCounts) {
+        const primarySymbol = getMostFrequent(symbolismCounts);
+        const symbolicProfiles = {
+          'falling': `
+            <h3>Symbolic Landscape</h3>
+            <p>Your responses related to falling suggest feelings of vulnerability and a fear of losing control, possibly reflecting deeper insecurities about your ability to manage life's challenges.</p>
+            <p class="citation">Freud, S. (1900). The Interpretation of Dreams. Basic Books.</p>
+          `,
+          'pursuit': `
+            <h3>Symbolic Landscape</h3>
+            <p>Your responses indicating themes of pursuit suggest that you might feel threatened or chased by unresolved issues, reflecting an ongoing struggle with stress or anxiety.</p>
+            <p class="citation">Freud, S. (1900). The Interpretation of Dreams. Basic Books.</p>
+          `,
+          'unprepared': `
+            <h3>Symbolic Landscape</h3>
+            <p>Your responses about being unprepared point to underlying anxiety regarding your readiness to face important life challenges or responsibilities.</p>
+            <p class="citation">Freud, S. (1900). The Interpretation of Dreams. Basic Books.</p>
+          `,
+          'flying': `
+            <h3>Symbolic Landscape</h3>
+            <p>Your responses involving flying suggest aspirations, freedom, and a desire to transcend limitations, indicating an inner drive for self-actualization.</p>
+            <p class="citation">Freud, S. (1900). The Interpretation of Dreams. Basic Books.</p>
+          `,
+          'water': `
+            <h3>Symbolic Landscape</h3>
+            <p>Your responses to deep water or ocean imagery reflect an exploration of your unconscious mind and the depths of your emotional life.</p>
+            <p class="citation">Jung, C. G. (1964). Man and His Symbols. Dell.</p>
+          `,
+          'enclosure': `
+            <h3>Symbolic Landscape</h3>
+            <p>Your responses about enclosed spaces suggest a focus on introspection, boundaries, and the need for safe emotional environments.</p>
+            <p class="citation">Jung, C. G. (1964). Man and His Symbols. Dell.</p>
+          `,
+          'height': `
+            <h3>Symbolic Landscape</h3>
+            <p>Your responses related to tall structures indicate aspirations and a desire for perspective, perhaps symbolizing goals and challenges in your life.</p>
+            <p class="citation">Jung, C. G. (1964). Man and His Symbols. Dell.</p>
+          `,
+          'threshold': `
+            <h3>Symbolic Landscape</h3>
+            <p>Your responses involving doorways or thresholds suggest transitions, opportunities, and the transformative moments that mark personal growth.</p>
+            <p class="citation">Jung, C. G. (1964). Man and His Symbols. Dell.</p>
+          `
+        };
+        return symbolicProfiles[primarySymbol] || `
+          <h3>Symbolic Landscape</h3>
+          <p>Your symbolic responses reveal a rich inner world where images and metaphors reflect both your challenges and aspirations.</p>
+          <p class="citation">Jung, C. G. (1964). Man and His Symbols. Dell.</p>
+        `;
+      }
+      
+      function generateAnxietyProfile(anxietyCounts) {
+        const primaryAnxiety = getMostFrequent(anxietyCounts);
+        const anxietyProfiles = {
+          'separation': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses indicate that fears of separation and loss are significant triggers for your anxiety, impacting your sense of security in relationships.</p>
+            <p class="citation">Bowlby, J. (1969). Attachment and Loss, Vol. 1: Attachment. Basic Books.</p>
+          `,
+          'performance': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses suggest that situations requiring evaluation of your performance often provoke anxiety, reflecting concerns about competence and self-worth.</p>
+            <p class="citation">Strachey, J. (1961). The Standard Edition of the Complete Psychological Works of Sigmund Freud.</p>
+          `,
+          'social': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses point to social anxiety, where fear of judgment or rejection in interpersonal interactions plays a significant role in your emotional experience.</p>
+            <p class="citation">Leary, M. R. (1990). Responses to Social Exclusion: Social Anxiety and the Need to Belong. Oxford University Press.</p>
+          `,
+          'existential': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses indicate that existential concerns, such as the meaning of life and mortality, contribute to your overall anxiety, prompting deep reflection on life’s uncertainties.</p>
+            <p class="citation">Yalom, I. D. (1980). Existential Psychotherapy. Basic Books.</p>
+          `,
+          'dependency': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses suggest internal conflict regarding dependency, reflecting struggles between the desire for support and the need for independence.</p>
+            <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+          `,
+          'expression': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses indicate difficulties in emotional expression, hinting at internal conflicts that may hinder effective communication of your feelings.</p>
+            <p class="citation">Freud, S. (1926). Inhibitions, Symptoms and Anxiety. The Standard Edition of the Complete Psychological Works of Sigmund Freud.</p>
+          `,
+          'selfother': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses suggest tension between self-interest and caring for others, highlighting a struggle to balance personal needs with relational responsibilities.</p>
+            <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+          `,
+          'competence': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses indicate anxiety related to competence, reflecting fears about inadequacy and challenges in meeting expectations.</p>
+            <p class="citation">Strachey, J. (1961). The Standard Edition of the Complete Psychological Works of Sigmund Freud.</p>
+          `,
+          'secure': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses reflect a secure perspective on past experiences, which may help buffer against anxiety triggered by relational or performance pressures.</p>
+            <p class="citation">Bowlby, J. (1969). Attachment and Loss, Vol. 1: Attachment. Basic Books.</p>
+          `,
+          'ambivalent': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses suggest ambivalence regarding early attachments, which may contribute to ongoing uncertainty and anxiety in your relationships.</p>
+            <p class="citation">Ainsworth, M. D. S. (1978). Patterns of Attachment. Psychology Press.</p>
+          `,
+          'avoidant': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses indicate an avoidant stance, which may be a strategy to cope with anxiety by distancing yourself emotionally from potential threats.</p>
+            <p class="citation">Main, M., &amp; Solomon, J. (1990). Procedures for identifying infants as disorganized/disoriented during the Ainsworth Strange Situation. University of Chicago Press.</p>
+          `,
+          'complex': `
+            <h3>Anxiety and Conflict</h3>
+            <p>Your responses reveal a complex interplay of emotions related to early experiences, suggesting that both nurturing and challenging elements from your past contribute to current anxieties.</p>
+            <p class="citation">Bion, W. R. (1962). Learning from Experience. Heinemann.</p>
+          `
+        };
+        return anxietyProfiles[primaryAnxiety] || `
+          <h3>Anxiety and Conflict</h3>
+          <p>Your responses indicate that anxiety manifests in multiple dimensions, reflecting both internal conflicts and external pressures. This complexity suggests that your experience of anxiety is multifaceted and deeply rooted in your personal history.</p>
+          <p class="citation">Freud, S. (1926). Inhibitions, Symptoms and Anxiety. The Standard Edition of the Complete Psychological Works of Sigmund Freud.</p>
+        `;
+      }
+      
+      function generateSynthesisProfile(responses) {
+        let counts = {};
+        for (const [key, value] of Object.entries(responses)) {
+          counts[value] = (counts[value] || 0) + 1;
         }
         
-        return mostFrequent;
-    }
-
-    // Generate Defense Organization profile
-    function generateDefenseProfile(defenseCounts) {
-        const primaryDefense = getMostFrequent(defenseCounts);
+        const borderlineFeatures = ['splitting-neg', 'abandonment', 'fragmentation', 'disorganized'];
+        const borderlineCount = borderlineFeatures.reduce((count, feature) => count + (counts[feature] || 0), 0);
         
-        const defenseProfiles = {
-            'intellectualization': `
-                <h3>Defense Organization</h3>
-                <p>Your responses suggest a tendency toward intellectualizing defenses, whereby emotional content is managed through cognitive processes. This pattern often develops when emotions are experienced as overwhelming or dangerous in early development, leading to a defensive separation between thoughts and feelings.</p>
-                <p class="citation">Vaillant, G. E. (1992). Ego Mechanisms of Defense: A Guide for Clinicians and Researchers. American Psychiatric Publishing.</p>
-            `,
-            'displacement': `
-                <h3>Defense Organization</h3>
-                <p>Your responses indicate a pattern of displacement defenses, where uncomfortable feelings are transferred from their original source to safer, less threatening targets. This defensive structure often emerges when direct expression of feelings toward primary figures was discouraged or punished in formative relationships.</p>
-                <p class="citation">Freud, A. (1936). The Ego and the Mechanisms of Defense. International Universities Press.</p>
-            `,
-            'denial': `
-                <h3>Defense Organization</h3>
-                <p>Your responses suggest a reliance on denial mechanisms, characterized by avoiding acknowledgment of painful emotional realities. This defensive pattern often develops as protection against overwhelming experiences that exceed the psyche's capacity for integration at critical developmental periods.</p>
-                <p class="citation">Dorpat, T. L. (1983). The cognitive arrest hypothesis of denial. International Journal of Psychoanalysis, 64, 47-58.</p>
-            `,
-            'reaction-formation': `
-                <h3>Defense Organization</h3>
-                <p>Your responses indicate a tendency toward reaction formation, wherein unacceptable impulses are transformed into their opposites. This defensive structure often emerges in development when experiencing or expressing certain feelings was perceived as threatening to important attachments.</p>
-                <p class="citation">Brenner, C. (1982). The Mind in Conflict. International Universities Press.</p>
-            `,
-            'projection': `
-                <h3>Defense Organization</h3>
-                <p>Your responses suggest use of projective defenses, whereby disowned aspects of the self are attributed to others. This defensive pattern often develops when certain self-experiences were met with shame or rejection, creating the need to locate these experiences outside the self.</p>
-                <p class="citation">McWilliams, N. (2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. Guilford Press.</p>
-            `,
-            'repression': `
-                <h3>Defense Organization</h3>
-                <p>Your responses suggest a pattern of repressive defenses, characterized by the exclusion of disturbing content from conscious awareness. This fundamental defense mechanism often develops to protect the psyche from overwhelming anxiety or conflicts that threaten psychological equilibrium.</p>
-                <p class="citation">Erdelyi, M. H. (2006). The unified theory of repression. Behavioral and Brain Sciences, 29(5), 499-511.</p>
-            `,
-            'sublimation': `
-                <h3>Defense Organization</h3>
-                <p>Your responses indicate a tendency toward sublimation, where potentially problematic impulses are channeled into socially valued activities. This mature defense mechanism suggests psychological flexibility and adaptive capacity for transforming difficult emotional material.</p>
-                <p class="citation">Vaillant, G. E. (2000). Adaptive mental mechanisms: Their role in a positive psychology. American Psychologist, 55(1), 89-98.</p>
-            `
-        };
+        const narcissisticFeatures = ['mirroring', 'fragmentation', 'idealization', 'external'];
+        const narcissisticCount = narcissisticFeatures.reduce((count, feature) => count + (counts[feature] || 0), 0);
         
-        return defenseProfiles[primaryDefense] || `
-            <h3>Defense Organization</h3>
-            <p>Your responses suggest a complex defense structure that utilizes multiple mechanisms adaptively. This pattern of psychological flexibility enables you to employ different defensive strategies based on situational demands and psychological needs.</p>
-            <p class="citation">Cramer, P. (2006). Protecting the Self: Defense Mechanisms in Action. Guilford Press.</p>
-        `;
-    }
-
-    // Generate Object Relations profile
-    function generateObjectRelationsProfile(objectRelationsCounts) {
-        const primaryPattern = getMostFrequent(objectRelationsCounts);
+        const neuroticFeatures = ['intellectualization', 'displacement', 'reaction-formation', 'performance'];
+        const neuroticCount = neuroticFeatures.reduce((count, feature) => count + (counts[feature] || 0), 0);
         
-        const relationshipProfiles = {
-            'abandonment': `
-                <h3>Object Relations</h3>
-                <p>Your responses suggest a relational pattern centered on fears of abandonment and loss. Object relations theory would understand this as reflecting early experiences that created internal working models of attachment figures as potentially unavailable, leading to heightened vigilance around separation.</p>
-                <p class="citation">Masterson, J. F. (1988). The Search for the Real Self: Unmasking the Personality Disorders of Our Age. Free Press.</p>
-            `,
-            'engulfment': `
-                <h3>Object Relations</h3>
-                <p>Your responses indicate concerns about engulfment and loss of autonomy in close relationships. This pattern often reflects developmental experiences where boundaries between self and other were insufficiently recognized, creating internal object representations that associate closeness with loss of self.</p>
-                <p class="citation">Mahler, M. S., Pine, F., & Bergman, A. (1975). The Psychological Birth of the Human Infant. Basic Books.</p>
-            `,
-            'persecution': `
-                <h3>Object Relations</h3>
-                <p>Your responses suggest vigilance toward potential harm or betrayal in relationships. In object relations terms, this pattern often reflects early experiences that fostered internal representations of others as potentially dangerous or exploitative, activating protective self-preservation strategies.</p>
-                <p class="citation">Klein, M. (1946). Notes on some schizoid mechanisms. International Journal of Psychoanalysis, 27, 99-110.</p>
-            `,
-            'anxious': `
-                <h3>Object Relations</h3>
-                <p>Your responses suggest an anxious/preoccupied attachment orientation, characterized by heightened sensitivity to relational cues and concern about the availability of others. This pattern often reflects inconsistent early caregiving experiences that created uncertainty about relational security.</p>
-                <p class="citation">Fonagy, P. (2001). Attachment Theory and Psychoanalysis. Other Press.</p>
-            `,
-            'avoidant': `
-                <h3>Object Relations</h3>
-                <p>Your responses indicate an avoidant/dismissing attachment orientation, characterized by emotional self-containment and emphasis on autonomy. This pattern often develops when early attachment needs were consistently unmet or discouraged, leading to defensive deactivation of attachment behaviors.</p>
-                <p class="citation">Mikulincer, M., & Shaver, P. R. (2007). Attachment in Adulthood: Structure, Dynamics, and Change. Guilford Press.</p>
-            `,
-            'secure': `
-                <h3>Object Relations</h3>
-                <p>Your responses suggest relatively secure attachment patterns, characterized by comfort with both intimacy and autonomy. This orientation reflects the internalization of generally positive and consistent early relational experiences, fostering internal working models of others as reliable and the self as worthy.</p>
-                <p class="citation">Bowlby, J. (1988). A Secure Base: Parent-Child Attachment and Healthy Human Development. Basic Books.</p>
-            `,
-            'disorganized': `
-                <h3>Object Relations</h3>
-                <p>Your responses indicate complex or contradictory relational patterns, suggesting elements of disorganized attachment. This orientation often develops when primary caregivers were simultaneously sources of both comfort and fear, creating unresolvable approach-avoidance dilemmas in attachment.</p>
-                <p class="citation">Main, M., & Solomon, J. (1990). Procedures for identifying infants as disorganized/disoriented during the Ainsworth Strange Situation. In M. T. Greenberg, D. Cicchetti, & E. M. Cummings (Eds.), Attachment in the Preschool Years (pp. 121–160). University of Chicago Press.</p>
-            `
-        };
+        const psychoticFeatures = ['projection', 'persecution', 'complex'];
+        const psychoticCount = psychoticFeatures.reduce((count, feature) => count + (counts[feature] || 0), 0);
         
-        return relationshipProfiles[primaryPattern] || `
-            <h3>Object Relations</h3>
-            <p>Your responses suggest a complex relational pattern with elements of both security and insecurity depending on context. This flexible attachment organization allows for adaptation across different relationships while maintaining core relational capacities.</p>
-            <p class="citation">Bartholomew, K., & Horowitz, L. M. (1991). Attachment styles among young adults: A test of a four-category model. Journal of Personality and Social Psychology, 61(2), 226-244.</p>
-        `;
-    }
-
-    // Generate Psychosexual Development profile
-    function generatePsychosexualProfile(psychosexualCounts) {
-        const primaryLevel = getMostFrequent(psychosexualCounts);
+        const healthyFeatures = ['sublimation', 'secure', 'genital', 'realistic', 'balanced'];
+        const healthyCount = healthyFeatures.reduce((count, feature) => count + (counts[feature] || 0), 0);
         
-        const psychosexualProfiles = {
-            'oral': `
-                <h3>Psychosexual Development</h3>
-                <p>Your responses suggest themes associated with oral developmental concerns, including issues of trust, dependency, and emotional nourishment. In classical psychoanalytic theory, this constellation may reflect developmental experiences that activated concerns about having basic dependency needs adequately met.</p>
-                <p class="citation">Abraham, K. (1927). The influence of oral erotism on character-formation. In Selected Papers on Psychoanalysis. Hogarth Press.</p>
-            `,
-            'anal': `
-                <h3>Psychosexual Development</h3>
-                <p>Your responses indicate themes associated with anal developmental concerns, including issues of control, order, and autonomy. In psychoanalytic understanding, this pattern often reflects developmental experiences around toilet training and early autonomy that emphasized regulation, control, and compliance.</p>
-                <p class="citation">Jones, E. (1918). Anal erotic character traits. Journal of Abnormal Psychology, 13(5), 261-284.</p>
-            `,
-            'phallic': `
-                <h3>Psychosexual Development</h3>
-                <p>Your responses suggest themes associated with phallic developmental concerns, including assertiveness, competition, and recognition. In classical theory, this constellation often reflects oedipal-phase experiences that shaped attitudes toward ambition, status, and competitive striving.</p>
-                <p class="citation">Freud, S. (1924). The dissolution of the Oedipus complex. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
-            `,
-            'genital': `
-                <h3>Psychosexual Development</h3>
-                <p>Your responses indicate a relatively integrated psychosexual development, suggesting successful navigation of earlier developmental phases. This pattern is associated with capacity for genuine intimacy, balanced assertiveness, and flexible approaches to both autonomy and dependence.</p>
-                <p class="citation">Freud, S. (1923). The infantile genital organization. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
-            `,
-            'id': `
-                <h3>Psychosexual Development</h3>
-                <p>Your responses suggest a psychological organization with prominent id influences, prioritizing pleasure, spontaneity, and immediate gratification. While this orientation provides vitality and creativity, it may occasionally conflict with external demands or long-term goals.</p>
-                <p class="citation">Freud, S. (1923). The ego and the id. The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX.</p>
-            `,
-            'superego': `
-                <h3>Psychosexual Development</h3>
-                <p>Your responses indicate a psychological organization with prominent superego influences, emphasizing moral standards, ideals, and social expectations. This orientation provides ethical guidance but may sometimes manifest as excessive self-criticism or rigid adherence to internalized standards.</p>
-                <p class="citation">Strachey, J. (1961). The Standard Edition of the Complete Psychological Works of Sigmund Freud, Volume XIX (1923-1925): The Ego and the Id and Other Works.</p>
-            `,
-            'ego': `
-                <h3>Psychosexual Development</h3>
-                <p>Your responses suggest a psychological organization with strong ego functioning, characterized by reality-testing, practical judgment, and adaptive compromise. This orientation facilitates effective negotiation between internal desires and external demands.</p>
-                <p class="citation">Hartmann, H. (1939). Ego psychology and the problem of adaptation. International Universities Press.</p>
-            `
-        };
+        const featureCounts = [
+          { type: 'borderline', count: borderlineCount },
+          { type: 'narcissistic', count: narcissisticCount },
+          { type: 'neurotic', count: neuroticCount },
+          { type: 'psychotic', count: psychoticCount },
+          { type: 'healthy', count: healthyCount }
+        ];
         
-        return psychosexualProfiles[primaryLevel] || `
-            <h3>Psychosexual Development</h3>
-            <p>Your responses suggest a balanced psychological organization with integration of id impulses, ego functions, and superego values. This equilibrium allows for both responsible functioning and access to pleasure, creativity, and aspirational striving.</p>
-            <p class="citation">Brenner, C. (1982). The Mind in Conflict. International Universities Press.</p>
-        `;
-    }
-
-    // Generate Self Structure profile
-    function generateSelfStructureProfile(selfPsychologyCounts) {
-        const primaryNeed = getMostFrequent(selfPsychologyCounts);
+        const predominantOrganization = featureCounts.sort((a, b) => b.count - a.count)[0].type;
         
-        const selfProfiles = {
-            'mirroring': `
-                <h3>Self Structure</h3>
-                <p>Your responses suggest a heightened sensitivity to recognition and validation, with self-esteem potentially vulnerable to external feedback. Through the lens of self psychology, this pattern often develops when early mirroring needs were inconsistently met, leading to a self-structure that requires ongoing external validation for maintenance of cohesion.</p>
-                <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
-            `,
-            'idealizing': `
-                <h3>Self Structure</h3>
-                <p>Your responses indicate a particular valuing of strong, admirable figures who provide a sense of security and inspiration. In self psychology, this pattern reflects idealizing selfobject needs, which when optimally met, allow for the internalization of calming, strength-giving capacities and values.</p>
-                <p class="citation">Kohut, H. (1984). How Does Analysis Cure? University of Chicago Press.</p>
-            `,
-            'twinship': `
-                <h3>Self Structure</h3>
-                <p>Your responses suggest importance placed on experiences of similarity and belonging with others. This pattern reflects twinship selfobject needs, which when adequately met, support the development of a secure sense of human connectedness and normalized belonging in the world.</p>
-                <p class="citation">Kohut, H. (1984). How Does Analysis Cure? University of Chicago Press.</p>
-            `,
-            'fragmentation': `
-                <h3>Self Structure</h3>
-                <p>Your responses indicate sensitivity to experiences of shame and diminished self-cohesion in response to setbacks. This vulnerability to fragmentation often reflects developmental experiences where self-expression was met with empathic failures, creating a conditional sense of self-worth.</p>
-                <p class="citation">Morrison, A. P. (1989). Shame: The Underside of Narcissism. Analytic Press.</p>
-            `,
-            'realistic': `
-                <h3>Self Structure</h3>
-                <p>Your responses suggest a relatively stable and resilient self-structure that can maintain cohesion even when facing setbacks. This capacity for self-regulation often reflects developmental experiences of consistent empathic attunement that facilitated integration of both positive and negative self-experiences.</p>
-                <p class="citation">Kohut, H. (1977). The Restoration of the Self. International Universities Press.</p>
-            `,
-            'external': `
-                <h3>Self Structure</h3>
-                <p>Your responses indicate a tendency to locate responsibility outside the self when facing disappointments. While this protects against fragmentation, it may limit opportunities for growth through integrating both successes and failures into a complex, multifaceted self-experience.</p>
-                <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
-            `
-        };
-        
-        return selfProfiles[primaryNeed] || `
-            <h3>Self Structure</h3>
-            <p>Your responses suggest a multifaceted self-structure with balanced needs for validation, inspiration, and belonging. This integration of different selfobject needs allows for flexibility in maintaining self-cohesion across varying interpersonal contexts and life circumstances.</p>
-            <p class="citation">Wolf, E. S. (1988). Treating the Self: Elements of Clinical Self Psychology. Guilford Press.</p>
-        `;
-    }
-
-    // Generate Symbolic Landscape profile
-    function generateSymbolicProfile(symbolismCounts) {
-        const primarySymbol = getMostFrequent(symbolismCounts);
-        
-        const symbolicProfiles = {
-            'falling': `
-                <h3>Symbolic Landscape</h3>
-                <p>Your symbolic landscape features themes of falling or losing control, suggesting unconscious concerns about vulnerability and surrender. In depth psychology, these motifs often reflect anxiety about relinquishing conscious control and confronting the unknown aspects of the self.</p>
-                <p class="citation">Jung, C. G. (1964). Man and His Symbols. Doubleday.</p>
-            `,
-            'pursuit': `
-                <h3>Symbolic Landscape</h3>
-                <p>Your symbolic landscape includes themes of pursuit or threat, suggesting unconscious vigilance toward potential danger. In analytical psychology, these motifs often represent disowned aspects of the self (the shadow) seeking integration or unresolved conflicts demanding attention.</p>
-                <p class="citation">Jung, C. G. (1951). Aion: Researches into the Phenomenology of the Self. Princeton University Press.</p>
-            `,
-            'unprepared': `
-                <h3>Symbolic Landscape</h3>
-                <p>Your symbolic landscape features themes of unpreparedness or inadequacy, suggesting unconscious concerns about competence and evaluation. These motifs often reflect internalized standards and expectations, as well as anxiety about meeting perceived demands of important others.</p>
-                <p class="citation">Jung, C. G. (1964). Man and His Symbols. Doubleday.</p>
-            `,
-            'flying': `
-                <h3>Symbolic Landscape</h3>
-                <p>Your symbolic landscape includes themes of liberation and transcendence, suggesting unconscious yearning for freedom and expanded possibilities. In depth psychology, these symbols often represent aspirational aspects of the self and the potential for psychological transformation.</p>
-                <p class="citation">Jung, C. G. (1964). Man and His Symbols. Doubleday.</p>
-            `,
-            'water': `
-                <h3>Symbolic Landscape</h3>
-                <p>Your symbolic landscape features water imagery, suggesting unconscious connections to emotional depths and the fluidity of the psyche. In Jungian psychology, water represents the unconscious mind – both its nurturing potential and its capacity to overwhelm consciousness.</p>
-                <p class="citation">Jung, C. G. (1964). Man and His Symbols. Doubleday.</p>
-            `,
-            'enclosure': `
-                <h3>Symbolic Landscape</h3>
-                <p>Your symbolic landscape includes enclosed spaces, suggesting unconscious concerns with protection, constraint, or hidden aspects of experience. In depth psychology, these symbols often represent both the security of containment and anxieties about limitation or confinement.</p>
-                <p class="citation">Bachelard, G. (1958). The Poetics of Space. Beacon Press.</p>
-            `,
-            'height': `
-                <h3>Symbolic Landscape</h3>
-                <p>Your symbolic landscape features elevated structures, suggesting unconscious associations with perspective, aspiration, and the relationship between earthly and spiritual realms. These symbols often represent the striving for higher consciousness and broader vision.</p>
-                <p class="citation">Eliade, M. (1959). The Sacred and the Profane: The Nature of Religion. Harcourt.</p>
-            `,
-            'threshold': `
-                <h3>Symbolic Landscape</h3>
-                <p>Your symbolic landscape includes threshold imagery, suggesting unconscious preoccupation with transition and transformation. In depth psychology, these symbols represent liminal spaces between different states of consciousness and identity, where psychological growth and integration occur.</p>
-                <p class="citation">Campbell, J. (1949). The Hero with a Thousand Faces. Pantheon Books.</p>
-            `
-        };
-        
-        return symbolicProfiles[primarySymbol] || `
-            <h3>Symbolic Landscape</h3>
-            <p>Your symbolic landscape is diverse and complex, featuring multiple significant archetypal themes. This symbolic richness suggests psychological depth and access to varied aspects of the collective unconscious, supporting adaptation across different life circumstances.</p>
-            <p class="citation">Jung, C. G. (1964). Man and His Symbols. Doubleday.</p>
-        `;
-    }
-
-    // Generate Anxiety and Conflict profile
-    function generateAnxietyProfile(anxietyCounts) {
-        const primaryAnxiety = getMostFrequent(anxietyCounts);
-        
-        const anxietyProfiles = {
-            'separation': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses indicate significant anxiety around separation and relational security. Psychodynamically, this pattern often emerges from early attachment experiences that created uncertainty about the reliability and consistency of important others, leading to heightened vigilance about potential abandonment or rejection.</p>
-                <p class="citation">Bowlby, J. (1973). Attachment and Loss, Vol. 2: Separation. Basic Books.</p>
-            `,
-            'performance': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses suggest anxiety centered on performance and competence evaluation. Psychodynamically, this pattern often reflects early experiences where approval and acceptance were contingent upon achievement, creating an internal working model that links self-worth with demonstrable accomplishment.</p>
-                <p class="citation">Horney, K. (1950). Neurosis and Human Growth: The Struggle Toward Self-Realization. W. W. Norton & Company.</p>
-            `,
-            'social': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses indicate anxiety focused on social evaluation and potential judgment. From a psychodynamic perspective, this pattern often develops when early relational experiences created heightened sensitivity to others' perceptions, perhaps through experiences of criticism, humiliation, or conditional acceptance.</p>
-                <p class="citation">Sullivan, H. S. (1953). The Interpersonal Theory of Psychiatry. W. W. Norton & Company.</p>
-            `,
-            'existential': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses suggest anxiety centered on existential concerns such as mortality and meaning. While universal to human experience, the prominence of these themes may reflect early encounters with loss or instability that brought existential vulnerabilities into conscious awareness at formative developmental periods.</p>
-                <p class="citation">Yalom, I. D. (1980). Existential Psychotherapy. Basic Books.</p>
-            `,
-            'dependency': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses indicate central conflicts around dependence versus independence. This dialectic often reflects developmental experiences that created ambivalence about reliance on others, perhaps through inconsistent availability of caregivers or premature expectations of self-sufficiency.</p>
-                <p class="citation">Blatt, S. J. (2008). Polarities of Experience: Relatedness and Self-definition in Personality Development, Psychopathology, and the Therapeutic Process. American Psychological Association.</p>
-            `,
-            'expression': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses suggest conflicts centered on emotional expression versus containment. This tension often emerges from developmental experiences where emotional expression was either discouraged or met with unpredictable responses, creating uncertainty about the safety and consequences of emotional authenticity.</p>
-                <p class="citation">Greenberg, L. S. (2015). Emotion-Focused Therapy: Coaching Clients to Work Through Their Feelings. American Psychological Association.</p>
-            `,
-            'selfother': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses indicate conflicts between self-interest and care for others. This tension often reflects internalized values around selfishness versus selflessness, typically shaped by family, cultural, and religious messages about proper balance between personal needs and collective responsibility.</p>
-                <p class="citation">Gilligan, C. (1982). In a Different Voice: Psychological Theory and Women's Development. Harvard University Press.</p>
-            `,
-            'competence': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses suggest conflicts around achievement striving versus acceptance of limitations. This dialectic often reflects developmental experiences that created uncertainty about conditional versus unconditional acceptance, leading to ongoing tension between ambition and self-acceptance.</p>
-                <p class="citation">Horney, K. (1950). Neurosis and Human Growth: The Struggle Toward Self-Realization. W. W. Norton & Company.</p>
-            `,
-            'secure': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses suggest a foundation of basic security established in early development. This relative freedom from pervasive anxiety often reflects consistent early caregiving experiences that fostered trust in both self-efficacy and the reliability of important others, creating a secure base for exploring both internal and external worlds.</p>
-                <p class="citation">Bowlby, J. (1988). A Secure Base: Parent-Child Attachment and Healthy Human Development. Basic Books.</p>
-            `,
-            'ambivalent': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses indicate ambivalence and uncertainty in your approaches to relationships. This pattern often reflects inconsistent early caregiving experiences that created divergent internal working models of attachment, leading to conflicting expectations and behaviors in intimate connections.</p>
-                <p class="citation">Ainsworth, M. D. S., Blehar, M. C., Waters, E., & Wall, S. (1978). Patterns of Attachment: A Psychological Study of the Strange Situation. Lawrence Erlbaum.</p>
-            `,
-            'avoidant': `
-                <h3>Anxiety and Conflict</h3>
-                <p>Your responses suggest a tendency toward self-reliance rather than seeking emotional support from others. This pattern often develops when early attachment needs were consistently unmet or discouraged, leading to defensive deactivation of attachment-seeking behaviors and emphasis on autonomy.</p>
-                <p class="citation">Mikulincer, M., & Shaver, P. R. (2007). Attachment in Adulthood: Structure, Dynamics, and Change. Guilford Press.</p>
-            `
-        };
-        
-        return anxietyProfiles[primaryAnxiety] || `
-            <h3>Anxiety and Conflict</h3>
-            <p>Your responses suggest a complex relationship with anxiety that varies across different contexts and relationship dynamics. This flexibility allows for adaptation to different situations while maintaining core psychological stability.</p>
+        const synthesisProfiles = {
+          'borderline': `
+            <h3>Synthesis</h3>
+            <p>The integration of these patterns suggests elements of a borderline personality organization, characterized by concerns around abandonment, identity diffusion, and affective instability. This organization often reflects early attachment disruptions that interfered with the integration of positive and negative self and object representations.</p>
+            <p class="citation">Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. Jason Aronson.</p>
+          `,
+          'narcissistic': `
+            <h3>Synthesis</h3>
+            <p>The integration of these patterns suggests elements of a narcissistic personality organization, characterized by vulnerability to self-fragmentation, idealization/devaluation dynamics, and sensitivity to narcissistic injury. This organization often reflects developmental experiences where validation was inconsistent or conditional upon meeting external standards.</p>
+            <p class="citation">Kohut, H. (1971). The Analysis of the Self: A Systematic Approach to the Psychoanalytic Treatment of Narcissistic Personality Disorders. International Universities Press.</p>
+          `,
+          'neurotic': `
+            <h3>Synthesis</h3>
+            <p>The integration of these patterns suggests a neurotic personality organization, characterized by intact reality testing, relatively stable identity, and predominant use of second-order defenses. This organization reflects developmental achievement of object constancy, with conflicts primarily operating at the intrapsychic rather than interpersonal level.</p>
             <p class="citation">McWilliams, N. (2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. Guilford Press.</p>
+          `,
+          'psychotic': `
+            <h3>Synthesis</h3>
+            <p>The integration of these patterns suggests some features associated with psychotic processes, such as projective identification, persecution concerns, and potential for reality testing impairment under stress. These features often reflect early developmental experiences that created fundamental uncertainty about the boundaries between self and other, internal and external.</p>
+            <p class="citation">Bion, W. R. (1967). Second Thoughts: Selected Papers on Psychoanalysis. Heinemann.</p>
+          `,
+          'healthy': `
+            <h3>Synthesis</h3>
+            <p>The integration of these patterns suggests a predominantly healthy personality organization, characterized by psychological flexibility, access to mature defenses, and capacity for both autonomy and intimacy. This organization reflects successful navigation of developmental challenges, allowing for integration of both positive and negative aspects of self and other representations.</p>
+            <p class="citation">Vaillant, G. E. (2012). Triumphs of Experience: The Men of the Harvard Grant Study. Belknap Press.</p>
+          `
+        };
+        
+        return synthesisProfiles[predominantOrganization] || `
+          <h3>Synthesis</h3>
+          <p>The integration of these patterns suggests a complex personality organization with elements of multiple structures. This psychological flexibility enables adaptation across different contexts while maintaining core stability and cohesion. The capacity to employ various defenses and relational strategies represents a significant developmental achievement.</p>
+          <p class="citation">McWilliams, N. (2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. Guilford Press.</p>
         `;
-    </script>
+      }
+    });
+  </script>
+</body>
+</html>
 </body>
 </html>
