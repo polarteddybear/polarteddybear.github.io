@@ -6,22 +6,156 @@
   <title>Psychoanalytic Self-Exploration</title>
   <style>
     /* Base Styles */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', serif; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Georgia', serif;
+    }
     body {
       background-color: #f5f5f5;
       color: #333;
       line-height: 1.7;
-      background-image: linear-gradient(rgba(255,255,255,0.9),rgba(255,255,255,0.9)),
-                        url('https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/simpleicons.svg');
-      background-size: cover; background-attachment: fixed; background-position: center;
+      background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+        url('https://cdnjs.cloudflare.com/ajax/libs/simple-icons/10.0.0/simpleicons.svg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
     }
-    header { /* ...header styles... */ }
-    nav { /* ...nav styles... */ }
-    .container { max-width: 1000px; margin: 2rem auto; padding: 0 2rem; }
-    .section { background-color: rgba(255,255,255,0.97); padding: 2.5rem; border-radius: 8px;
-               box-shadow: 0 8px 30px rgba(0,0,0,0.15); margin-bottom: 2rem; border-top: 5px solid #1e293b; }
     .hidden { display: none !important; }
-    /* Additional CSS (headings, buttons, form groups, media queries, etc.) */
+    header {
+      background-color: rgba(30, 41, 59, 0.95);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-bottom: 3px solid #111827;
+      position: relative;
+    }
+    nav {
+      background-color: rgba(17, 24, 39, 0.95);
+      padding: 0.8rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    nav ul li {
+      margin: 0 2rem;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      transition: all 0.3s;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    nav ul li a:hover {
+      background-color: rgba(55, 65, 81, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .active {
+      background-color: #374151;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: white;
+      transition: all 0.3s;
+      transform: translateX(-50%);
+    }
+    nav ul li a:hover::after,
+    .active::after {
+      width: 60%;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    .section {
+      background-color: rgba(255,255,255,0.97);
+      padding: 2.5rem;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      margin-bottom: 2rem;
+      border-top: 5px solid #1e293b;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    h1, h2, h3 {
+      color: #1e293b;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      font-family: 'Baskerville', 'Times New Roman', serif;
+    }
+    h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #1e293b, #64748b);
+      margin-top: 10px;
+      border-radius: 3px;
+    }
+    p { margin-bottom: 1.5rem; text-align: justify; }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #1e293b 0%, #111827 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(17,24,39,0.4);
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(17,24,39,0.6);
+    }
+    .form-group { margin-bottom: 1.8rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1.5rem; }
+    .radio-group { display: flex; flex-direction: column; margin-top: 0.8rem; }
+    .radio-option { margin-bottom: 0.7rem; display: flex; align-items: center; }
+    .radio-option input[type="radio"] { margin-right: 10px; }
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      background-color: rgba(17,24,39,0.95);
+      color: white;
+      margin-top: 2rem;
+    }
+    @media (max-width: 768px) {
+      nav ul { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      nav ul li { margin: 0.5rem; }
+      .container { padding: 0 1rem; }
+      .section { padding: 1.5rem; }
+      .btn { padding: 0.8rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -41,24 +175,24 @@
   </nav>
   
   <div class="container">
-    <!-- Home Section -->
+    <!-- Home Section (Visible by default) -->
     <section id="home" class="section">
       <h2>Welcome to Psychoanalytic Self-Exploration</h2>
-      <p>This assessment draws upon classical and contemporary psychoanalytic theories...</p>
+      <p>This assessment draws upon classical and contemporary psychoanalytic theories to offer insights into your unconscious dynamics. Begin by exploring the content below.</p>
       <a href="#assessment" class="btn start-assessment">Begin Assessment</a>
     </section>
     
-    <!-- Theory Section -->
+    <!-- Theory Section (Hidden by default) -->
     <section id="about" class="section hidden">
       <h2>Theoretical Foundations</h2>
-      <p>Learn about the key theories that inform this assessment...</p>
+      <p>Learn about the key theories behind this assessment, including psychoanalysis, object relations, self psychology, and attachment theory.</p>
       <a href="#assessment" class="btn start-assessment">Proceed to Assessment</a>
     </section>
     
-    <!-- Assessment Section (Survey Form) -->
+    <!-- Assessment Section (Hidden by default) -->
     <section id="assessment" class="section hidden">
       <h2>Psychoanalytic Self-Assessment</h2>
-      <p>Answer the following 15 questions based on psychoanalytic theory.</p>
+      <p>Please answer the following 15 questions based on psychoanalytic theory:</p>
       
       <form id="assessment-form">
         <!-- Part I: Defense Mechanisms (Questions 1–3) -->
@@ -68,15 +202,15 @@
           <div class="radio-group">
             <div class="radio-option">
               <input type="radio" id="q1-a" name="q1" value="intellectualization" required>
-              <label for="q1-a">Analyze it intellectually...</label>
+              <label for="q1-a">Analyze it intellectually</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q1-b" name="q1" value="displacement">
-              <label for="q1-b">Get irritated about unrelated matters</label>
+              <label for="q1-b">Become irritated about unrelated issues</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q1-c" name="q1" value="denial">
-              <label for="q1-c">Ignore the feeling altogether</label>
+              <label for="q1-c">Ignore or avoid the emotion</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q1-d" name="q1" value="reaction-formation">
@@ -90,7 +224,7 @@
           <div class="radio-group">
             <div class="radio-option">
               <input type="radio" id="q2-a" name="q2" value="projection" required>
-              <label for="q2-a">Feel they're being unfair</label>
+              <label for="q2-a">Feel they are being unfair</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q2-b" name="q2" value="introjection">
@@ -112,19 +246,19 @@
           <div class="radio-group">
             <div class="radio-option">
               <input type="radio" id="q3-a" name="q3" value="repression" required>
-              <label for="q3-a">Remain unconscious</label>
+              <label for="q3-a">Remain hidden from my awareness</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q3-b" name="q3" value="sublimation">
-              <label for="q3-b">Are redirected into creative outlets</label>
+              <label for="q3-b">Are redirected into creative or productive activities</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q3-c" name="q3" value="regression">
-              <label for="q3-c">Emerge in immature behavior</label>
+              <label for="q3-c">Cause me to act immaturely</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q3-d" name="q3" value="undoing">
-              <label for="q3-d">Lead to compensatory actions</label>
+              <label for="q3-d">Lead to compensatory behaviors</label>
             </div>
           </div>
         </div>
@@ -166,11 +300,11 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q5-c" name="q5" value="idealization">
-              <label for="q5-c">Maintain a positive view</label>
+              <label for="q5-c">Maintain a positive view despite shortcomings</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q5-d" name="q5" value="ambivalence">
-              <label for="q5-d">Feel conflicted about them</label>
+              <label for="q5-d">Experience mixed feelings</label>
             </div>
           </div>
         </div>
@@ -192,7 +326,7 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q6-d" name="q6" value="disorganized">
-              <label for="q6-d">Inconsistent and conflicted</label>
+              <label for="q6-d">Inconsistent or conflicted</label>
             </div>
           </div>
         </div>
@@ -204,19 +338,19 @@
           <div class="radio-group">
             <div class="radio-option">
               <input type="radio" id="q7-a" name="q7" value="oral" required>
-              <label for="q7-a">Dependent with emotional needs</label>
+              <label for="q7-a">Dependent and emotionally needy</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q7-b" name="q7" value="anal">
-              <label for="q7-b">Orderly and precise</label>
+              <label for="q7-b">Orderly and meticulous</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q7-c" name="q7" value="phallic">
-              <label for="q7-c">Competitive and status-driven</label>
+              <label for="q7-c">Competitive and status-conscious</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q7-d" name="q7" value="genital">
-              <label for="q7-d">Balanced in relationships</label>
+              <label for="q7-d">Balanced in intimacy and independence</label>
             </div>
           </div>
         </div>
@@ -226,7 +360,7 @@
           <div class="radio-group">
             <div class="radio-option">
               <input type="radio" id="q8-a" name="q8" value="id" required>
-              <label for="q8-a">Immediate pleasure</label>
+              <label for="q8-a">Immediate gratification</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q8-b" name="q8" value="superego">
@@ -234,11 +368,11 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q8-c" name="q8" value="ego">
-              <label for="q8-c">Practicality</label>
+              <label for="q8-c">Practical considerations</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q8-d" name="q8" value="balanced">
-              <label for="q8-d">A balance of all factors</label>
+              <label for="q8-d">A balance of factors</label>
             </div>
           </div>
         </div>
@@ -276,15 +410,15 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q10-b" name="q10" value="realistic">
-              <label for="q10-b">Disappointed yet grounded</label>
+              <label for="q10-b">Disappointed but grounded</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q10-c" name="q10" value="external">
-              <label for="q10-c">That external factors caused it</label>
+              <label for="q10-c">That external factors are to blame</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q10-d" name="q10" value="growth">
-              <label for="q10-d">That it’s an opportunity to learn</label>
+              <label for="q10-d">That it's an opportunity to learn</label>
             </div>
           </div>
         </div>
@@ -322,11 +456,11 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q12-b" name="q12" value="enclosure">
-              <label for="q12-b">An enclosed space (cave, room, etc.)</label>
+              <label for="q12-b">An enclosed space</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q12-c" name="q12" value="height">
-              <label for="q12-c">A tall structure (tower, mountain, etc.)</label>
+              <label for="q12-c">A tall structure</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q12-d" name="q12" value="threshold">
@@ -390,15 +524,15 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q15-b" name="q15" value="ambivalent">
-              <label for="q15-b">Were inconsistent, leading to uncertainty</label>
+              <label for="q15-b">Were inconsistent, causing uncertainty</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q15-c" name="q15" value="avoidant">
-              <label for="q15-c">Taught me to rely on myself</label>
+              <label for="q15-c">Encouraged self-reliance</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q15-d" name="q15" value="complex">
-              <label for="q15-d">Were complex with nurturing and difficult elements</label>
+              <label for="q15-d">Were both nurturing and challenging</label>
             </div>
           </div>
         </div>
@@ -406,11 +540,11 @@
         <button type="submit" class="btn">Submit Assessment</button>
       </form>
       
-      <!-- Results Section (initially hidden) -->
+      <!-- Results Section (Initially hidden) -->
       <div id="results" class="hidden">
         <div class="result-section">
           <h2 class="result-heading">Your Psychoanalytic Profile</h2>
-          <div id="result-content" class="result-content"></div>
+          <div id="result-content"></div>
           <a href="#home" class="btn return-home">Return to Introduction</a>
         </div>
       </div>
@@ -422,92 +556,86 @@
   </footer>
   
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
       const navLinks = document.querySelectorAll('.nav-link');
       const sections = document.querySelectorAll('.section');
       
-      // On initial load, show only the home section
+      // Initially, hide all sections except Home
       sections.forEach(section => {
         if (section.id !== 'home') section.classList.add('hidden');
       });
       
-      // Navigation click handler
+      // Navigation link click handler
       navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener("click", (e) => {
           e.preventDefault();
+          // Remove active class from all links
           navLinks.forEach(link => link.classList.remove('active'));
           link.classList.add('active');
-          const target = link.getAttribute('data-section');
+          const target = link.getAttribute("data-section");
           sections.forEach(section => {
-            section.classList.toggle('hidden', section.id !== target);
+            section.classList.toggle("hidden", section.id !== target);
           });
         });
       });
       
-      // Begin Assessment button handler
+      // "Start Assessment" button click handler
       document.querySelectorAll('.start-assessment').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener("click", (e) => {
           e.preventDefault();
-          // Set assessment as active and hide other sections
+          // Set the assessment section visible and hide others
+          sections.forEach(section => {
+            section.classList.toggle("hidden", section.id !== "assessment");
+          });
+          // Optionally update nav active state
           navLinks.forEach(link => link.classList.remove('active'));
           document.querySelector('[data-section="assessment"]').classList.add('active');
-          sections.forEach(section => {
-            section.classList.toggle('hidden', section.id !== 'assessment');
-          });
-          document.getElementById('assessment').scrollIntoView({ behavior: 'smooth' });
+          document.getElementById("assessment").scrollIntoView({ behavior: "smooth" });
         });
       });
       
-      // Form submission handling
-      const assessmentForm = document.getElementById('assessment-form');
-      const resultsDiv = document.getElementById('results');
-      const resultContent = document.getElementById('result-content');
+      // Form submission handling (placeholder example)
+      const assessmentForm = document.getElementById("assessment-form");
+      const resultsDiv = document.getElementById("results");
+      const resultContent = document.getElementById("result-content");
       
       if (assessmentForm) {
-        assessmentForm.addEventListener('submit', (e) => {
+        assessmentForm.addEventListener("submit", (e) => {
           e.preventDefault();
-          // Validate that all required radios are checked
+          // Check if all required fields are answered
           const allAnswered = Array.from(document.querySelectorAll('input[type="radio"][required]'))
             .every(input => document.querySelector(`input[name="${input.name}"]:checked`));
           if (!allAnswered) {
             alert("Please answer all questions before submitting.");
             return;
           }
-          // Collect responses
-          const formData = new FormData(assessmentForm);
-          const responses = {};
-          for (const [key, value] of formData.entries()) {
-            responses[key] = value;
-          }
-          // Generate profile HTML (using your profile generation functions)
-          resultContent.innerHTML = generatePsychoanalyticProfile(responses);
-          assessmentForm.style.display = 'none';
-          resultsDiv.classList.remove('hidden');
-          resultsDiv.scrollIntoView({ behavior: 'smooth' });
+          // For demonstration, simply show a message
+          resultContent.innerHTML = "<p>Your responses have been recorded. (Profile generation not implemented in this demo.)</p>";
+          assessmentForm.style.display = "none";
+          resultsDiv.classList.remove("hidden");
+          resultsDiv.scrollIntoView({ behavior: "smooth" });
         });
       }
       
-      // Return to Home handler
+      // Return to Home button handler
       const returnHomeBtn = document.querySelector('.return-home');
       if (returnHomeBtn) {
-        returnHomeBtn.addEventListener('click', (e) => {
+        returnHomeBtn.addEventListener("click", (e) => {
           e.preventDefault();
-          navLinks.forEach(link => link.classList.remove('active'));
-          document.querySelector('[data-section="home"]').classList.add('active');
+          // Show Home section and reset form and results
           sections.forEach(section => {
-            section.classList.toggle('hidden', section.id !== 'home');
+            section.classList.toggle("hidden", section.id !== "home");
           });
+          navLinks.forEach(link => link.classList.remove("active"));
+          document.querySelector('[data-section="home"]').classList.add("active");
           if (assessmentForm) {
-            assessmentForm.style.display = 'block';
+            assessmentForm.style.display = "block";
             assessmentForm.reset();
           }
-          resultsDiv.classList.add('hidden');
-          document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+          resultsDiv.classList.add("hidden");
+          document.getElementById("home").scrollIntoView({ behavior: "smooth" });
         });
       }
-      
-      // Your profile generation functions (generatePsychoanalyticProfile, countResponsesInRange, etc.)
-      // Should be defined here or imported from a separate script.
     });
   </script>
 </body>
