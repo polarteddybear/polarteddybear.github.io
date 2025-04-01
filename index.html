@@ -380,32 +380,348 @@
     </section>
     
     <!-- Assessment Section -->
-    <section id="assessment" class="section hidden">
-      <h2>Psychoanalytic Self-Assessment</h2>
-      <p>Below are 15 questions based on psychoanalytic theory. Please respond to each honestly for the most accurate reflection of your unconscious dynamics. There are no right or wrong answers; each response offers insight into different aspects of psychological organization.</p>
-      
-      <form id="assessment-form">
-       <div class="form-group">
-  <div class="question">2. When someone criticizes me, I tend to:</div>
-  <div class="radio-group">
-    <div class="radio-option">
-      <input type="radio" id="q2-a" name="q2" value="projection" required>
-      <label for="q2-a">Feel they're being unfair or hypocritical</label>
-    </div>
-    <div class="radio-option">
-      <input type="radio" id="q2-b" name="q2" value="introjection">
-      <label for="q2-b">Immediately accept the criticism and feel badly about myself</label>
-    </div>
-    <div class="radio-option">
-      <input type="radio" id="q2-c" name="q2" value="rationalization">
-      <label for="q2-c">Explain why my actions were reasonable under the circumstances</label>
-    </div>
-    <div class="radio-option">
-      <input type="radio" id="q2-d" name="q2" value="isolation">
-      <label for="q2-d">Acknowledge the facts but remain emotionally detached from the criticism</label>
+<form id="assessment-form">
+  <!-- Part I: Defense Mechanisms (Questions 1–3) -->
+  <div class="form-group">
+    <h3>Part I: Defense Mechanisms</h3>
+    <div class="question">1. When faced with a painful emotion, I typically:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q1-a" name="q1" value="intellectualization" required>
+        <label for="q1-a">Analyze it intellectually, focusing on understanding rather than feeling it</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q1-b" name="q1" value="displacement">
+        <label for="q1-b">Find myself getting irritated or upset about unrelated matters</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q1-c" name="q1" value="denial">
+        <label for="q1-c">Often don't acknowledge the feeling and proceed as if nothing is wrong</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q1-d" name="q1" value="reaction-formation">
+        <label for="q1-d">Express the opposite emotion (e.g., being overly positive when actually sad)</label>
+      </div>
     </div>
   </div>
-</div>
+  
+  <div class="form-group">
+    <div class="question">2. When someone criticizes me, I tend to:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q2-a" name="q2" value="projection" required>
+        <label for="q2-a">Feel they're being unfair or hypocritical</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q2-b" name="q2" value="introjection">
+        <label for="q2-b">Immediately accept the criticism and feel badly about myself</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q2-c" name="q2" value="rationalization">
+        <label for="q2-c">Explain why my actions were reasonable under the circumstances</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q2-d" name="q2" value="isolation">
+        <label for="q2-d">Acknowledge the facts but remain emotionally detached from the criticism</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="question">3. I find that my unacceptable urges or desires:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q3-a" name="q3" value="repression" required>
+        <label for="q3-a">Are generally not part of my conscious awareness</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q3-b" name="q3" value="sublimation">
+        <label for="q3-b">Often get channeled into creative, work, or altruistic activities</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q3-c" name="q3" value="regression">
+        <label for="q3-c">Sometimes lead me to behave in more childlike or immature ways</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q3-d" name="q3" value="undoing">
+        <label for="q3-d">Prompt me to engage in compensatory behaviors to "make up for" them</label>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Part II: Object Relations (Questions 4–6) -->
+  <div class="form-group">
+    <h3>Part II: Object Relations</h3>
+    <div class="question">4. In close relationships, I most often worry about:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q4-a" name="q4" value="abandonment" required>
+        <label for="q4-a">Being abandoned or left alone</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q4-b" name="q4" value="engulfment">
+        <label for="q4-b">Losing my independence or being controlled</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q4-c" name="q4" value="persecution">
+        <label for="q4-c">Being hurt, exploited, or betrayed</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q4-d" name="q4" value="adequacy">
+        <label for="q4-d">Not being good enough or meeting expectations</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="question">5. When I'm disappointed by someone important to me, I typically:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q5-a" name="q5" value="splitting-neg" required>
+        <label for="q5-a">Find it difficult to remember their positive qualities</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q5-b" name="q5" value="identification">
+        <label for="q5-b">Take responsibility and blame myself for expecting too much</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q5-c" name="q5" value="idealization">
+        <label for="q5-c">Make excuses for them and maintain a positive view of them</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q5-d" name="q5" value="ambivalence">
+        <label for="q5-d">Feel conflicted, seeing both their positive and negative attributes simultaneously</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="question">6. My relationship patterns tend to be:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q6-a" name="q6" value="anxious" required>
+        <label for="q6-a">Intense with concerns about whether others truly care for me</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q6-b" name="q6" value="avoidant">
+        <label for="q6-b">Somewhat distant, with me valuing independence and self-sufficiency</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q6-c" name="q6" value="secure">
+        <label for="q6-c">Generally stable with a good balance of closeness and autonomy</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q6-d" name="q6" value="disorganized">
+        <label for="q6-d">Complicated with conflicting desires for closeness and distance</label>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Part III: Psychosexual Development (Questions 7–8) -->
+  <div class="form-group">
+    <h3>Part III: Psychosexual Development</h3>
+    <div class="question">7. Which of these traits best describes you in your daily life?</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q7-a" name="q7" value="oral" required>
+        <label for="q7-a">Dependent on others, with needs for emotional nourishment and support</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q7-b" name="q7" value="anal">
+        <label for="q7-b">Orderly and controlled, with emphasis on rules, cleanliness, or precision</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q7-c" name="q7" value="phallic">
+        <label for="q7-c">Competitive, achievement-oriented, with concerns about status or recognition</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q7-d" name="q7" value="genital">
+        <label for="q7-d">Balanced approach to work and relationships with capacity for genuine intimacy</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="question">8. In making decisions, I tend to prioritize:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q8-a" name="q8" value="id" required>
+        <label for="q8-a">What would bring me pleasure or satisfaction</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q8-b" name="q8" value="superego">
+        <label for="q8-b">What is right, moral, or what others would approve of</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q8-c" name="q8" value="ego">
+        <label for="q8-c">What is realistic and practical in the situation</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q8-d" name="q8" value="balanced">
+        <label for="q8-d">A balance of my desires, moral values, and practical reality</label>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Part IV: Self Psychology (Questions 9–10) -->
+  <div class="form-group">
+    <h3>Part IV: Self Psychology</h3>
+    <div class="question">9. What do you most seek from important relationships?</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q9-a" name="q9" value="mirroring" required>
+        <label for="q9-a">Validation, appreciation, and recognition of my qualities and accomplishments</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q9-b" name="q9" value="idealizing">
+        <label for="q9-b">Someone strong and capable I can admire and feel protected by</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q9-c" name="q9" value="twinship">
+        <label for="q9-c">A sense of similarity and belonging with someone who understands me</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q9-d" name="q9" value="altruistic">
+        <label for="q9-d">Opportunities to care for and support others</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="question">10. When I experience a failure or setback, I typically feel:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q10-a" name="q10" value="fragmentation" required>
+        <label for="q10-a">A profound sense of shame and fragmentation of my self-worth</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q10-b" name="q10" value="realistic">
+        <label for="q10-b">Disappointed but able to maintain perspective on my overall value</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q10-c" name="q10" value="external">
+        <label for="q10-c">That external factors or other people were primarily responsible</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q10-d" name="q10" value="growth">
+        <label for="q10-d">That it provides an opportunity to learn and improve</label>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Part V: Dreams and Symbolism (Questions 11–12) -->
+  <div class="form-group">
+    <h3>Part V: Dreams and Symbolism</h3>
+    <div class="question">11. Which of these recurring dream themes resonates most with you?</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q11-a" name="q11" value="falling" required>
+        <label for="q11-a">Falling or losing control</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q11-b" name="q11" value="pursuit">
+        <label for="q11-b">Being pursued or threatened</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q11-c" name="q11" value="unprepared">
+        <label for="q11-c">Being unprepared for an important event or test</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q11-d" name="q11" value="flying">
+        <label for="q11-d">Flying or transcending limitations</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="question">12. Which symbolic image carries the most emotional resonance for you?</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q12-a" name="q12" value="water" required>
+        <label for="q12-a">Deep water or ocean</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q12-b" name="q12" value="enclosure">
+        <label for="q12-b">An enclosed space (cave, room, etc.)</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q12-c" name="q12" value="height">
+        <label for="q12-c">A tall structure (tower, mountain, etc.)</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q12-d" name="q12" value="threshold">
+        <label for="q12-d">A doorway, bridge, or threshold</label>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Part VI: Anxiety and Conflict (Questions 13–15) -->
+  <div class="form-group">
+    <h3>Part VI: Anxiety and Conflict</h3>
+    <div class="question">13. My anxiety is most often triggered by:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q13-a" name="q13" value="separation" required>
+        <label for="q13-a">Separation from loved ones or being alone</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q13-b" name="q13" value="performance">
+        <label for="q13-b">Situations where my performance or competence is evaluated</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q13-c" name="q13" value="social">
+        <label for="q13-c">Social situations or potential judgment from others</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q13-d" name="q13" value="existential">
+        <label for="q13-d">Thoughts about mortality or life's meaning</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="question">14. The internal conflict I struggle with most involves:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q14-a" name="q14" value="dependency" required>
+        <label for="q14-a">Dependence versus independence</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q14-b" name="q14" value="expression">
+        <label for="q14-b">Emotional expression versus control</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q14-c" name="q14" value="selfother">
+        <label for="q14-c">Self-interest versus care for others</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q14-d" name="q14" value="competence">
+        <label for="q14-d">Striving for achievement versus accepting limitations</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="question">15. When contemplating my childhood experiences, I believe they primarily:</div>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" id="q15-a" name="q15" value="secure" required>
+        <label for="q15-a">Provided security and confidence that continues to support me</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q15-b" name="q15" value="ambivalent">
+        <label for="q15-b">Were inconsistent, leading to uncertainty in relationships</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q15-c" name="q15" value="avoidant">
+        <label for="q15-c">Taught me to rely on myself rather than expecting support</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="q15-d" name="q15" value="complex">
+        <label for="q15-d">Were complex with both nurturing and difficult elements</label>
+      </div>
+    </div>
+  </div>
 
         <!-- Additional questions (q2 to q15) should follow the same structure -->
         <button type="submit" class="btn">Submit Assessment</button>
