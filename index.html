@@ -138,10 +138,24 @@
       transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(17,24,39,0.6);
     }
-    .form-group { margin-bottom: 1.8rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1.5rem; }
-    .radio-group { display: flex; flex-direction: column; margin-top: 0.8rem; }
-    .radio-option { margin-bottom: 0.7rem; display: flex; align-items: center; }
-    .radio-option input[type="radio"] { margin-right: 10px; }
+    .form-group {
+      margin-bottom: 1.8rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 1.5rem;
+    }
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      margin-top: 0.8rem;
+    }
+    .radio-option {
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+    }
+    .radio-option input[type="radio"] {
+      margin-right: 10px;
+    }
     footer {
       text-align: center;
       padding: 2rem 0;
@@ -150,11 +164,23 @@
       margin-top: 2rem;
     }
     @media (max-width: 768px) {
-      nav ul { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-      nav ul li { margin: 0.5rem; }
-      .container { padding: 0 1rem; }
-      .section { padding: 1.5rem; }
-      .btn { padding: 0.8rem 1.5rem; }
+      nav ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      nav ul li {
+        margin: 0.5rem;
+      }
+      .container {
+        padding: 0 1rem;
+      }
+      .section {
+        padding: 1.5rem;
+      }
+      .btn {
+        padding: 0.8rem 1.5rem;
+      }
     }
   </style>
 </head>
@@ -250,7 +276,7 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q3-b" name="q3" value="sublimation">
-              <label for="q3-b">Are redirected into creative or productive activities</label>
+              <label for="q3-b">Are redirected into creative activities</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q3-c" name="q3" value="regression">
@@ -300,7 +326,7 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q5-c" name="q5" value="idealization">
-              <label for="q5-c">Maintain a positive view despite shortcomings</label>
+              <label for="q5-c">Maintain a positive view despite flaws</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q5-d" name="q5" value="ambivalence">
@@ -372,7 +398,7 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q8-d" name="q8" value="balanced">
-              <label for="q8-d">A balance of factors</label>
+              <label for="q8-d">A balance of all factors</label>
             </div>
           </div>
         </div>
@@ -414,11 +440,11 @@
             </div>
             <div class="radio-option">
               <input type="radio" id="q10-c" name="q10" value="external">
-              <label for="q10-c">That external factors are to blame</label>
+              <label for="q10-c">Blaming external factors</label>
             </div>
             <div class="radio-option">
               <input type="radio" id="q10-d" name="q10" value="growth">
-              <label for="q10-d">That it's an opportunity to learn</label>
+              <label for="q10-d">Seeing failure as an opportunity to learn</label>
             </div>
           </div>
         </div>
@@ -441,7 +467,7 @@
               <label for="q11-c">Feeling unprepared</label>
             </div>
             <div class="radio-option">
-              <input type="radio" id="q11-d" name="q11" value="flying">
+              <input type="radio" id="q11-d" name="q11" value="flying" required>
               <label for="q11-d">Flying or transcending limits</label>
             </div>
           </div>
@@ -558,18 +584,17 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const navLinks = document.querySelectorAll('.nav-link');
-      const sections = document.querySelectorAll('.section');
+      const sections = document.querySelectorAll('section');
       
-      // Initially, hide all sections except Home
+      // Initially, show only the Home section
       sections.forEach(section => {
-        if (section.id !== 'home') section.classList.add('hidden');
+        if (section.id !== "home") section.classList.add("hidden");
       });
       
       // Navigation link click handler
       navLinks.forEach(link => {
         link.addEventListener("click", (e) => {
           e.preventDefault();
-          // Remove active class from all links
           navLinks.forEach(link => link.classList.remove('active'));
           link.classList.add('active');
           const target = link.getAttribute("data-section");
@@ -579,22 +604,20 @@
         });
       });
       
-      // "Start Assessment" button click handler
+      // "Start Assessment" button handler
       document.querySelectorAll('.start-assessment').forEach(btn => {
         btn.addEventListener("click", (e) => {
           e.preventDefault();
-          // Set the assessment section visible and hide others
           sections.forEach(section => {
             section.classList.toggle("hidden", section.id !== "assessment");
           });
-          // Optionally update nav active state
           navLinks.forEach(link => link.classList.remove('active'));
           document.querySelector('[data-section="assessment"]').classList.add('active');
           document.getElementById("assessment").scrollIntoView({ behavior: "smooth" });
         });
       });
       
-      // Form submission handling (placeholder example)
+      // Form submission handling (example placeholder)
       const assessmentForm = document.getElementById("assessment-form");
       const resultsDiv = document.getElementById("results");
       const resultContent = document.getElementById("result-content");
@@ -602,14 +625,13 @@
       if (assessmentForm) {
         assessmentForm.addEventListener("submit", (e) => {
           e.preventDefault();
-          // Check if all required fields are answered
           const allAnswered = Array.from(document.querySelectorAll('input[type="radio"][required]'))
             .every(input => document.querySelector(`input[name="${input.name}"]:checked`));
           if (!allAnswered) {
             alert("Please answer all questions before submitting.");
             return;
           }
-          // For demonstration, simply show a message
+          // For demonstration, show a placeholder message.
           resultContent.innerHTML = "<p>Your responses have been recorded. (Profile generation not implemented in this demo.)</p>";
           assessmentForm.style.display = "none";
           resultsDiv.classList.remove("hidden");
@@ -622,7 +644,6 @@
       if (returnHomeBtn) {
         returnHomeBtn.addEventListener("click", (e) => {
           e.preventDefault();
-          // Show Home section and reset form and results
           sections.forEach(section => {
             section.classList.toggle("hidden", section.id !== "home");
           });
